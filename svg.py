@@ -74,13 +74,15 @@ def transformXY(new_cord):
         new_y = new_y % MAX_PIXEL
         min_x = (100 - new_cord[0])
         new_x = min_x + (new_x-CENTER_PIXEL)/(CENTER_PIXEL/new_y)
-        
+
     draw.add(Line(tuple(CORDINATES),(max_x,max_y), 0))
     draw.add(Line((min_x,min_y),(new_x,new_y),0))
+    CORDINATES[0] = new_x
+    CORDINATES[1] = new_y
 
 def test():
     transformXY((90,150))
-    #transformXY((20,80))
+    transformXY((40,-80))
     draw.write_svg()
     draw.display()
     return
