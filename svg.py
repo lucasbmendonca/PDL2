@@ -6,7 +6,7 @@ MAX_PIXEL = 200.00
 CENTER_PIXEL = 100
 MIN_PIXEL = 0
 
-class Draw:
+class Svg:
     def __init__(self,name="svg",begin=0,end=MAX_PIXEL):
         self.name = name
         self.items = []
@@ -51,11 +51,11 @@ class Line:
            
 #def colorstr(rgb): return "#%x%x%x" % (int(rgb[0]/16),int(rgb[1]/16),int(rgb[2]/16))
 
-draw = Draw('test')
+draw = Svg('test')
 
 def test():
     draw.add(Line(tuple(CORDINATES),(120,120), 0))
     draw.write_svg()
     draw.display()
     return
-test()
+#test()

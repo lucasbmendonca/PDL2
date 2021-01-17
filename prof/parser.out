@@ -1,0 +1,1486 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> command
+Rule 2     program -> program command
+Rule 3     command -> NEW size color ;
+Rule 4     command -> LOAD STR ;
+Rule 5     command -> SAVE STR ;
+Rule 6     command -> COLOR color ;
+Rule 7     command -> POINT point color ;
+Rule 8     command -> POINT point ;
+Rule 9     command -> LINE point point color ;
+Rule 10    command -> LINE point point ;
+Rule 11    command -> RECT point point color ;
+Rule 12    command -> RECT point size color ;
+Rule 13    command -> RECT point point ;
+Rule 14    command -> RECT point size ;
+Rule 15    command -> RECTFILL point point color ;
+Rule 16    command -> RECTFILL point size color ;
+Rule 17    command -> RECTFILL point point ;
+Rule 18    command -> RECTFILL point size ;
+Rule 19    command -> CIRC point INT color ;
+Rule 20    command -> CIRC point INT ;
+Rule 21    command -> POLYLINE points color ;
+Rule 22    command -> POLYLINE points ;
+Rule 23    command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR ;
+Rule 24    command -> VAR = value ;
+Rule 25    points -> point
+Rule 26    points -> points point
+Rule 27    point -> value , value
+Rule 28    size -> value x value
+Rule 29    color -> value : value : value
+Rule 30    value -> INT
+Rule 31    value -> VAR
+Rule 32    value -> RAND value
+
+Terminals, with rules where they appear
+
+,                    : 27
+:                    : 29 29
+;                    : 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24
+=                    : 24
+CIRC                 : 19 20
+COLOR                : 6
+DO                   : 23
+DOTS                 : 23
+ENDFOR               : 23
+FOR                  : 23
+IN                   : 23
+INT                  : 19 20 30
+LINE                 : 9 10
+LOAD                 : 4
+NEW                  : 3
+POINT                : 7 8
+POLYLINE             : 21 22
+RAND                 : 32
+RECT                 : 11 12 13 14
+RECTFILL             : 15 16 17 18
+SAVE                 : 5
+STR                  : 4 5
+VAR                  : 23 24 31
+[                    : 23
+]                    : 23
+error                : 
+x                    : 28
+
+Nonterminals, with rules where they appear
+
+color                : 3 6 7 9 11 12 15 16 19 21
+command              : 1 2
+point                : 7 8 9 9 10 10 11 11 12 13 13 14 15 15 16 17 17 18 19 20 25 26
+points               : 21 22 26
+program              : 2 23 0
+size                 : 3 12 14 16 18
+value                : 23 23 24 27 27 28 28 29 29 29 32
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . command
+    (2) program -> . program command
+    (3) command -> . NEW size color ;
+    (4) command -> . LOAD STR ;
+    (5) command -> . SAVE STR ;
+    (6) command -> . COLOR color ;
+    (7) command -> . POINT point color ;
+    (8) command -> . POINT point ;
+    (9) command -> . LINE point point color ;
+    (10) command -> . LINE point point ;
+    (11) command -> . RECT point point color ;
+    (12) command -> . RECT point size color ;
+    (13) command -> . RECT point point ;
+    (14) command -> . RECT point size ;
+    (15) command -> . RECTFILL point point color ;
+    (16) command -> . RECTFILL point size color ;
+    (17) command -> . RECTFILL point point ;
+    (18) command -> . RECTFILL point size ;
+    (19) command -> . CIRC point INT color ;
+    (20) command -> . CIRC point INT ;
+    (21) command -> . POLYLINE points color ;
+    (22) command -> . POLYLINE points ;
+    (23) command -> . FOR VAR IN [ value DOTS value ] DO program ENDFOR ;
+    (24) command -> . VAR = value ;
+
+    NEW             shift and go to state 3
+    LOAD            shift and go to state 4
+    SAVE            shift and go to state 5
+    COLOR           shift and go to state 6
+    POINT           shift and go to state 7
+    LINE            shift and go to state 8
+    RECT            shift and go to state 9
+    RECTFILL        shift and go to state 10
+    CIRC            shift and go to state 11
+    POLYLINE        shift and go to state 12
+    FOR             shift and go to state 13
+    VAR             shift and go to state 14
+
+    program                        shift and go to state 1
+    command                        shift and go to state 2
+
+state 1
+
+    (0) S' -> program .
+    (2) program -> program . command
+    (3) command -> . NEW size color ;
+    (4) command -> . LOAD STR ;
+    (5) command -> . SAVE STR ;
+    (6) command -> . COLOR color ;
+    (7) command -> . POINT point color ;
+    (8) command -> . POINT point ;
+    (9) command -> . LINE point point color ;
+    (10) command -> . LINE point point ;
+    (11) command -> . RECT point point color ;
+    (12) command -> . RECT point size color ;
+    (13) command -> . RECT point point ;
+    (14) command -> . RECT point size ;
+    (15) command -> . RECTFILL point point color ;
+    (16) command -> . RECTFILL point size color ;
+    (17) command -> . RECTFILL point point ;
+    (18) command -> . RECTFILL point size ;
+    (19) command -> . CIRC point INT color ;
+    (20) command -> . CIRC point INT ;
+    (21) command -> . POLYLINE points color ;
+    (22) command -> . POLYLINE points ;
+    (23) command -> . FOR VAR IN [ value DOTS value ] DO program ENDFOR ;
+    (24) command -> . VAR = value ;
+
+    NEW             shift and go to state 3
+    LOAD            shift and go to state 4
+    SAVE            shift and go to state 5
+    COLOR           shift and go to state 6
+    POINT           shift and go to state 7
+    LINE            shift and go to state 8
+    RECT            shift and go to state 9
+    RECTFILL        shift and go to state 10
+    CIRC            shift and go to state 11
+    POLYLINE        shift and go to state 12
+    FOR             shift and go to state 13
+    VAR             shift and go to state 14
+
+    command                        shift and go to state 15
+
+state 2
+
+    (1) program -> command .
+
+    NEW             reduce using rule 1 (program -> command .)
+    LOAD            reduce using rule 1 (program -> command .)
+    SAVE            reduce using rule 1 (program -> command .)
+    COLOR           reduce using rule 1 (program -> command .)
+    POINT           reduce using rule 1 (program -> command .)
+    LINE            reduce using rule 1 (program -> command .)
+    RECT            reduce using rule 1 (program -> command .)
+    RECTFILL        reduce using rule 1 (program -> command .)
+    CIRC            reduce using rule 1 (program -> command .)
+    POLYLINE        reduce using rule 1 (program -> command .)
+    FOR             reduce using rule 1 (program -> command .)
+    VAR             reduce using rule 1 (program -> command .)
+    $end            reduce using rule 1 (program -> command .)
+    ENDFOR          reduce using rule 1 (program -> command .)
+
+
+state 3
+
+    (3) command -> NEW . size color ;
+    (28) size -> . value x value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    size                           shift and go to state 16
+    value                          shift and go to state 17
+
+state 4
+
+    (4) command -> LOAD . STR ;
+
+    STR             shift and go to state 21
+
+
+state 5
+
+    (5) command -> SAVE . STR ;
+
+    STR             shift and go to state 22
+
+
+state 6
+
+    (6) command -> COLOR . color ;
+    (29) color -> . value : value : value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    color                          shift and go to state 23
+    value                          shift and go to state 24
+
+state 7
+
+    (7) command -> POINT . point color ;
+    (8) command -> POINT . point ;
+    (27) point -> . value , value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    point                          shift and go to state 25
+    value                          shift and go to state 26
+
+state 8
+
+    (9) command -> LINE . point point color ;
+    (10) command -> LINE . point point ;
+    (27) point -> . value , value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    point                          shift and go to state 27
+    value                          shift and go to state 26
+
+state 9
+
+    (11) command -> RECT . point point color ;
+    (12) command -> RECT . point size color ;
+    (13) command -> RECT . point point ;
+    (14) command -> RECT . point size ;
+    (27) point -> . value , value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    point                          shift and go to state 28
+    value                          shift and go to state 26
+
+state 10
+
+    (15) command -> RECTFILL . point point color ;
+    (16) command -> RECTFILL . point size color ;
+    (17) command -> RECTFILL . point point ;
+    (18) command -> RECTFILL . point size ;
+    (27) point -> . value , value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    point                          shift and go to state 29
+    value                          shift and go to state 26
+
+state 11
+
+    (19) command -> CIRC . point INT color ;
+    (20) command -> CIRC . point INT ;
+    (27) point -> . value , value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    point                          shift and go to state 30
+    value                          shift and go to state 26
+
+state 12
+
+    (21) command -> POLYLINE . points color ;
+    (22) command -> POLYLINE . points ;
+    (25) points -> . point
+    (26) points -> . points point
+    (27) point -> . value , value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    points                         shift and go to state 31
+    point                          shift and go to state 32
+    value                          shift and go to state 26
+
+state 13
+
+    (23) command -> FOR . VAR IN [ value DOTS value ] DO program ENDFOR ;
+
+    VAR             shift and go to state 33
+
+
+state 14
+
+    (24) command -> VAR . = value ;
+
+    =               shift and go to state 34
+
+
+state 15
+
+    (2) program -> program command .
+
+    NEW             reduce using rule 2 (program -> program command .)
+    LOAD            reduce using rule 2 (program -> program command .)
+    SAVE            reduce using rule 2 (program -> program command .)
+    COLOR           reduce using rule 2 (program -> program command .)
+    POINT           reduce using rule 2 (program -> program command .)
+    LINE            reduce using rule 2 (program -> program command .)
+    RECT            reduce using rule 2 (program -> program command .)
+    RECTFILL        reduce using rule 2 (program -> program command .)
+    CIRC            reduce using rule 2 (program -> program command .)
+    POLYLINE        reduce using rule 2 (program -> program command .)
+    FOR             reduce using rule 2 (program -> program command .)
+    VAR             reduce using rule 2 (program -> program command .)
+    $end            reduce using rule 2 (program -> program command .)
+    ENDFOR          reduce using rule 2 (program -> program command .)
+
+
+state 16
+
+    (3) command -> NEW size . color ;
+    (29) color -> . value : value : value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    color                          shift and go to state 35
+    value                          shift and go to state 24
+
+state 17
+
+    (28) size -> value . x value
+
+    x               shift and go to state 36
+
+
+state 18
+
+    (30) value -> INT .
+
+    x               reduce using rule 30 (value -> INT .)
+    :               reduce using rule 30 (value -> INT .)
+    ,               reduce using rule 30 (value -> INT .)
+    ;               reduce using rule 30 (value -> INT .)
+    INT             reduce using rule 30 (value -> INT .)
+    VAR             reduce using rule 30 (value -> INT .)
+    RAND            reduce using rule 30 (value -> INT .)
+    DOTS            reduce using rule 30 (value -> INT .)
+    ]               reduce using rule 30 (value -> INT .)
+
+
+state 19
+
+    (31) value -> VAR .
+
+    x               reduce using rule 31 (value -> VAR .)
+    :               reduce using rule 31 (value -> VAR .)
+    ,               reduce using rule 31 (value -> VAR .)
+    ;               reduce using rule 31 (value -> VAR .)
+    INT             reduce using rule 31 (value -> VAR .)
+    VAR             reduce using rule 31 (value -> VAR .)
+    RAND            reduce using rule 31 (value -> VAR .)
+    DOTS            reduce using rule 31 (value -> VAR .)
+    ]               reduce using rule 31 (value -> VAR .)
+
+
+state 20
+
+    (32) value -> RAND . value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    value                          shift and go to state 37
+
+state 21
+
+    (4) command -> LOAD STR . ;
+
+    ;               shift and go to state 38
+
+
+state 22
+
+    (5) command -> SAVE STR . ;
+
+    ;               shift and go to state 39
+
+
+state 23
+
+    (6) command -> COLOR color . ;
+
+    ;               shift and go to state 40
+
+
+state 24
+
+    (29) color -> value . : value : value
+
+    :               shift and go to state 41
+
+
+state 25
+
+    (7) command -> POINT point . color ;
+    (8) command -> POINT point . ;
+    (29) color -> . value : value : value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    ;               shift and go to state 43
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    color                          shift and go to state 42
+    value                          shift and go to state 24
+
+state 26
+
+    (27) point -> value . , value
+
+    ,               shift and go to state 44
+
+
+state 27
+
+    (9) command -> LINE point . point color ;
+    (10) command -> LINE point . point ;
+    (27) point -> . value , value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    point                          shift and go to state 45
+    value                          shift and go to state 26
+
+state 28
+
+    (11) command -> RECT point . point color ;
+    (12) command -> RECT point . size color ;
+    (13) command -> RECT point . point ;
+    (14) command -> RECT point . size ;
+    (27) point -> . value , value
+    (28) size -> . value x value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    point                          shift and go to state 46
+    size                           shift and go to state 47
+    value                          shift and go to state 48
+
+state 29
+
+    (15) command -> RECTFILL point . point color ;
+    (16) command -> RECTFILL point . size color ;
+    (17) command -> RECTFILL point . point ;
+    (18) command -> RECTFILL point . size ;
+    (27) point -> . value , value
+    (28) size -> . value x value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    point                          shift and go to state 49
+    size                           shift and go to state 50
+    value                          shift and go to state 48
+
+state 30
+
+    (19) command -> CIRC point . INT color ;
+    (20) command -> CIRC point . INT ;
+
+    INT             shift and go to state 51
+
+
+state 31
+
+    (21) command -> POLYLINE points . color ;
+    (22) command -> POLYLINE points . ;
+    (26) points -> points . point
+    (29) color -> . value : value : value
+    (27) point -> . value , value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    ;               shift and go to state 53
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    color                          shift and go to state 52
+    point                          shift and go to state 54
+    value                          shift and go to state 55
+
+state 32
+
+    (25) points -> point .
+
+    ;               reduce using rule 25 (points -> point .)
+    INT             reduce using rule 25 (points -> point .)
+    VAR             reduce using rule 25 (points -> point .)
+    RAND            reduce using rule 25 (points -> point .)
+
+
+state 33
+
+    (23) command -> FOR VAR . IN [ value DOTS value ] DO program ENDFOR ;
+
+    IN              shift and go to state 56
+
+
+state 34
+
+    (24) command -> VAR = . value ;
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    value                          shift and go to state 57
+
+state 35
+
+    (3) command -> NEW size color . ;
+
+    ;               shift and go to state 58
+
+
+state 36
+
+    (28) size -> value x . value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    value                          shift and go to state 59
+
+state 37
+
+    (32) value -> RAND value .
+
+    x               reduce using rule 32 (value -> RAND value .)
+    :               reduce using rule 32 (value -> RAND value .)
+    ,               reduce using rule 32 (value -> RAND value .)
+    ;               reduce using rule 32 (value -> RAND value .)
+    INT             reduce using rule 32 (value -> RAND value .)
+    VAR             reduce using rule 32 (value -> RAND value .)
+    RAND            reduce using rule 32 (value -> RAND value .)
+    DOTS            reduce using rule 32 (value -> RAND value .)
+    ]               reduce using rule 32 (value -> RAND value .)
+
+
+state 38
+
+    (4) command -> LOAD STR ; .
+
+    NEW             reduce using rule 4 (command -> LOAD STR ; .)
+    LOAD            reduce using rule 4 (command -> LOAD STR ; .)
+    SAVE            reduce using rule 4 (command -> LOAD STR ; .)
+    COLOR           reduce using rule 4 (command -> LOAD STR ; .)
+    POINT           reduce using rule 4 (command -> LOAD STR ; .)
+    LINE            reduce using rule 4 (command -> LOAD STR ; .)
+    RECT            reduce using rule 4 (command -> LOAD STR ; .)
+    RECTFILL        reduce using rule 4 (command -> LOAD STR ; .)
+    CIRC            reduce using rule 4 (command -> LOAD STR ; .)
+    POLYLINE        reduce using rule 4 (command -> LOAD STR ; .)
+    FOR             reduce using rule 4 (command -> LOAD STR ; .)
+    VAR             reduce using rule 4 (command -> LOAD STR ; .)
+    $end            reduce using rule 4 (command -> LOAD STR ; .)
+    ENDFOR          reduce using rule 4 (command -> LOAD STR ; .)
+
+
+state 39
+
+    (5) command -> SAVE STR ; .
+
+    NEW             reduce using rule 5 (command -> SAVE STR ; .)
+    LOAD            reduce using rule 5 (command -> SAVE STR ; .)
+    SAVE            reduce using rule 5 (command -> SAVE STR ; .)
+    COLOR           reduce using rule 5 (command -> SAVE STR ; .)
+    POINT           reduce using rule 5 (command -> SAVE STR ; .)
+    LINE            reduce using rule 5 (command -> SAVE STR ; .)
+    RECT            reduce using rule 5 (command -> SAVE STR ; .)
+    RECTFILL        reduce using rule 5 (command -> SAVE STR ; .)
+    CIRC            reduce using rule 5 (command -> SAVE STR ; .)
+    POLYLINE        reduce using rule 5 (command -> SAVE STR ; .)
+    FOR             reduce using rule 5 (command -> SAVE STR ; .)
+    VAR             reduce using rule 5 (command -> SAVE STR ; .)
+    $end            reduce using rule 5 (command -> SAVE STR ; .)
+    ENDFOR          reduce using rule 5 (command -> SAVE STR ; .)
+
+
+state 40
+
+    (6) command -> COLOR color ; .
+
+    NEW             reduce using rule 6 (command -> COLOR color ; .)
+    LOAD            reduce using rule 6 (command -> COLOR color ; .)
+    SAVE            reduce using rule 6 (command -> COLOR color ; .)
+    COLOR           reduce using rule 6 (command -> COLOR color ; .)
+    POINT           reduce using rule 6 (command -> COLOR color ; .)
+    LINE            reduce using rule 6 (command -> COLOR color ; .)
+    RECT            reduce using rule 6 (command -> COLOR color ; .)
+    RECTFILL        reduce using rule 6 (command -> COLOR color ; .)
+    CIRC            reduce using rule 6 (command -> COLOR color ; .)
+    POLYLINE        reduce using rule 6 (command -> COLOR color ; .)
+    FOR             reduce using rule 6 (command -> COLOR color ; .)
+    VAR             reduce using rule 6 (command -> COLOR color ; .)
+    $end            reduce using rule 6 (command -> COLOR color ; .)
+    ENDFOR          reduce using rule 6 (command -> COLOR color ; .)
+
+
+state 41
+
+    (29) color -> value : . value : value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    value                          shift and go to state 60
+
+state 42
+
+    (7) command -> POINT point color . ;
+
+    ;               shift and go to state 61
+
+
+state 43
+
+    (8) command -> POINT point ; .
+
+    NEW             reduce using rule 8 (command -> POINT point ; .)
+    LOAD            reduce using rule 8 (command -> POINT point ; .)
+    SAVE            reduce using rule 8 (command -> POINT point ; .)
+    COLOR           reduce using rule 8 (command -> POINT point ; .)
+    POINT           reduce using rule 8 (command -> POINT point ; .)
+    LINE            reduce using rule 8 (command -> POINT point ; .)
+    RECT            reduce using rule 8 (command -> POINT point ; .)
+    RECTFILL        reduce using rule 8 (command -> POINT point ; .)
+    CIRC            reduce using rule 8 (command -> POINT point ; .)
+    POLYLINE        reduce using rule 8 (command -> POINT point ; .)
+    FOR             reduce using rule 8 (command -> POINT point ; .)
+    VAR             reduce using rule 8 (command -> POINT point ; .)
+    $end            reduce using rule 8 (command -> POINT point ; .)
+    ENDFOR          reduce using rule 8 (command -> POINT point ; .)
+
+
+state 44
+
+    (27) point -> value , . value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    value                          shift and go to state 62
+
+state 45
+
+    (9) command -> LINE point point . color ;
+    (10) command -> LINE point point . ;
+    (29) color -> . value : value : value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    ;               shift and go to state 64
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    color                          shift and go to state 63
+    value                          shift and go to state 24
+
+state 46
+
+    (11) command -> RECT point point . color ;
+    (13) command -> RECT point point . ;
+    (29) color -> . value : value : value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    ;               shift and go to state 66
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    color                          shift and go to state 65
+    value                          shift and go to state 24
+
+state 47
+
+    (12) command -> RECT point size . color ;
+    (14) command -> RECT point size . ;
+    (29) color -> . value : value : value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    ;               shift and go to state 68
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    color                          shift and go to state 67
+    value                          shift and go to state 24
+
+state 48
+
+    (27) point -> value . , value
+    (28) size -> value . x value
+
+    ,               shift and go to state 44
+    x               shift and go to state 36
+
+
+state 49
+
+    (15) command -> RECTFILL point point . color ;
+    (17) command -> RECTFILL point point . ;
+    (29) color -> . value : value : value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    ;               shift and go to state 70
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    color                          shift and go to state 69
+    value                          shift and go to state 24
+
+state 50
+
+    (16) command -> RECTFILL point size . color ;
+    (18) command -> RECTFILL point size . ;
+    (29) color -> . value : value : value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    ;               shift and go to state 72
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    color                          shift and go to state 71
+    value                          shift and go to state 24
+
+state 51
+
+    (19) command -> CIRC point INT . color ;
+    (20) command -> CIRC point INT . ;
+    (29) color -> . value : value : value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    ;               shift and go to state 74
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    color                          shift and go to state 73
+    value                          shift and go to state 24
+
+state 52
+
+    (21) command -> POLYLINE points color . ;
+
+    ;               shift and go to state 75
+
+
+state 53
+
+    (22) command -> POLYLINE points ; .
+
+    NEW             reduce using rule 22 (command -> POLYLINE points ; .)
+    LOAD            reduce using rule 22 (command -> POLYLINE points ; .)
+    SAVE            reduce using rule 22 (command -> POLYLINE points ; .)
+    COLOR           reduce using rule 22 (command -> POLYLINE points ; .)
+    POINT           reduce using rule 22 (command -> POLYLINE points ; .)
+    LINE            reduce using rule 22 (command -> POLYLINE points ; .)
+    RECT            reduce using rule 22 (command -> POLYLINE points ; .)
+    RECTFILL        reduce using rule 22 (command -> POLYLINE points ; .)
+    CIRC            reduce using rule 22 (command -> POLYLINE points ; .)
+    POLYLINE        reduce using rule 22 (command -> POLYLINE points ; .)
+    FOR             reduce using rule 22 (command -> POLYLINE points ; .)
+    VAR             reduce using rule 22 (command -> POLYLINE points ; .)
+    $end            reduce using rule 22 (command -> POLYLINE points ; .)
+    ENDFOR          reduce using rule 22 (command -> POLYLINE points ; .)
+
+
+state 54
+
+    (26) points -> points point .
+
+    ;               reduce using rule 26 (points -> points point .)
+    INT             reduce using rule 26 (points -> points point .)
+    VAR             reduce using rule 26 (points -> points point .)
+    RAND            reduce using rule 26 (points -> points point .)
+
+
+state 55
+
+    (29) color -> value . : value : value
+    (27) point -> value . , value
+
+    :               shift and go to state 41
+    ,               shift and go to state 44
+
+
+state 56
+
+    (23) command -> FOR VAR IN . [ value DOTS value ] DO program ENDFOR ;
+
+    [               shift and go to state 76
+
+
+state 57
+
+    (24) command -> VAR = value . ;
+
+    ;               shift and go to state 77
+
+
+state 58
+
+    (3) command -> NEW size color ; .
+
+    NEW             reduce using rule 3 (command -> NEW size color ; .)
+    LOAD            reduce using rule 3 (command -> NEW size color ; .)
+    SAVE            reduce using rule 3 (command -> NEW size color ; .)
+    COLOR           reduce using rule 3 (command -> NEW size color ; .)
+    POINT           reduce using rule 3 (command -> NEW size color ; .)
+    LINE            reduce using rule 3 (command -> NEW size color ; .)
+    RECT            reduce using rule 3 (command -> NEW size color ; .)
+    RECTFILL        reduce using rule 3 (command -> NEW size color ; .)
+    CIRC            reduce using rule 3 (command -> NEW size color ; .)
+    POLYLINE        reduce using rule 3 (command -> NEW size color ; .)
+    FOR             reduce using rule 3 (command -> NEW size color ; .)
+    VAR             reduce using rule 3 (command -> NEW size color ; .)
+    $end            reduce using rule 3 (command -> NEW size color ; .)
+    ENDFOR          reduce using rule 3 (command -> NEW size color ; .)
+
+
+state 59
+
+    (28) size -> value x value .
+
+    INT             reduce using rule 28 (size -> value x value .)
+    VAR             reduce using rule 28 (size -> value x value .)
+    RAND            reduce using rule 28 (size -> value x value .)
+    ;               reduce using rule 28 (size -> value x value .)
+
+
+state 60
+
+    (29) color -> value : value . : value
+
+    :               shift and go to state 78
+
+
+state 61
+
+    (7) command -> POINT point color ; .
+
+    NEW             reduce using rule 7 (command -> POINT point color ; .)
+    LOAD            reduce using rule 7 (command -> POINT point color ; .)
+    SAVE            reduce using rule 7 (command -> POINT point color ; .)
+    COLOR           reduce using rule 7 (command -> POINT point color ; .)
+    POINT           reduce using rule 7 (command -> POINT point color ; .)
+    LINE            reduce using rule 7 (command -> POINT point color ; .)
+    RECT            reduce using rule 7 (command -> POINT point color ; .)
+    RECTFILL        reduce using rule 7 (command -> POINT point color ; .)
+    CIRC            reduce using rule 7 (command -> POINT point color ; .)
+    POLYLINE        reduce using rule 7 (command -> POINT point color ; .)
+    FOR             reduce using rule 7 (command -> POINT point color ; .)
+    VAR             reduce using rule 7 (command -> POINT point color ; .)
+    $end            reduce using rule 7 (command -> POINT point color ; .)
+    ENDFOR          reduce using rule 7 (command -> POINT point color ; .)
+
+
+state 62
+
+    (27) point -> value , value .
+
+    ;               reduce using rule 27 (point -> value , value .)
+    INT             reduce using rule 27 (point -> value , value .)
+    VAR             reduce using rule 27 (point -> value , value .)
+    RAND            reduce using rule 27 (point -> value , value .)
+
+
+state 63
+
+    (9) command -> LINE point point color . ;
+
+    ;               shift and go to state 79
+
+
+state 64
+
+    (10) command -> LINE point point ; .
+
+    NEW             reduce using rule 10 (command -> LINE point point ; .)
+    LOAD            reduce using rule 10 (command -> LINE point point ; .)
+    SAVE            reduce using rule 10 (command -> LINE point point ; .)
+    COLOR           reduce using rule 10 (command -> LINE point point ; .)
+    POINT           reduce using rule 10 (command -> LINE point point ; .)
+    LINE            reduce using rule 10 (command -> LINE point point ; .)
+    RECT            reduce using rule 10 (command -> LINE point point ; .)
+    RECTFILL        reduce using rule 10 (command -> LINE point point ; .)
+    CIRC            reduce using rule 10 (command -> LINE point point ; .)
+    POLYLINE        reduce using rule 10 (command -> LINE point point ; .)
+    FOR             reduce using rule 10 (command -> LINE point point ; .)
+    VAR             reduce using rule 10 (command -> LINE point point ; .)
+    $end            reduce using rule 10 (command -> LINE point point ; .)
+    ENDFOR          reduce using rule 10 (command -> LINE point point ; .)
+
+
+state 65
+
+    (11) command -> RECT point point color . ;
+
+    ;               shift and go to state 80
+
+
+state 66
+
+    (13) command -> RECT point point ; .
+
+    NEW             reduce using rule 13 (command -> RECT point point ; .)
+    LOAD            reduce using rule 13 (command -> RECT point point ; .)
+    SAVE            reduce using rule 13 (command -> RECT point point ; .)
+    COLOR           reduce using rule 13 (command -> RECT point point ; .)
+    POINT           reduce using rule 13 (command -> RECT point point ; .)
+    LINE            reduce using rule 13 (command -> RECT point point ; .)
+    RECT            reduce using rule 13 (command -> RECT point point ; .)
+    RECTFILL        reduce using rule 13 (command -> RECT point point ; .)
+    CIRC            reduce using rule 13 (command -> RECT point point ; .)
+    POLYLINE        reduce using rule 13 (command -> RECT point point ; .)
+    FOR             reduce using rule 13 (command -> RECT point point ; .)
+    VAR             reduce using rule 13 (command -> RECT point point ; .)
+    $end            reduce using rule 13 (command -> RECT point point ; .)
+    ENDFOR          reduce using rule 13 (command -> RECT point point ; .)
+
+
+state 67
+
+    (12) command -> RECT point size color . ;
+
+    ;               shift and go to state 81
+
+
+state 68
+
+    (14) command -> RECT point size ; .
+
+    NEW             reduce using rule 14 (command -> RECT point size ; .)
+    LOAD            reduce using rule 14 (command -> RECT point size ; .)
+    SAVE            reduce using rule 14 (command -> RECT point size ; .)
+    COLOR           reduce using rule 14 (command -> RECT point size ; .)
+    POINT           reduce using rule 14 (command -> RECT point size ; .)
+    LINE            reduce using rule 14 (command -> RECT point size ; .)
+    RECT            reduce using rule 14 (command -> RECT point size ; .)
+    RECTFILL        reduce using rule 14 (command -> RECT point size ; .)
+    CIRC            reduce using rule 14 (command -> RECT point size ; .)
+    POLYLINE        reduce using rule 14 (command -> RECT point size ; .)
+    FOR             reduce using rule 14 (command -> RECT point size ; .)
+    VAR             reduce using rule 14 (command -> RECT point size ; .)
+    $end            reduce using rule 14 (command -> RECT point size ; .)
+    ENDFOR          reduce using rule 14 (command -> RECT point size ; .)
+
+
+state 69
+
+    (15) command -> RECTFILL point point color . ;
+
+    ;               shift and go to state 82
+
+
+state 70
+
+    (17) command -> RECTFILL point point ; .
+
+    NEW             reduce using rule 17 (command -> RECTFILL point point ; .)
+    LOAD            reduce using rule 17 (command -> RECTFILL point point ; .)
+    SAVE            reduce using rule 17 (command -> RECTFILL point point ; .)
+    COLOR           reduce using rule 17 (command -> RECTFILL point point ; .)
+    POINT           reduce using rule 17 (command -> RECTFILL point point ; .)
+    LINE            reduce using rule 17 (command -> RECTFILL point point ; .)
+    RECT            reduce using rule 17 (command -> RECTFILL point point ; .)
+    RECTFILL        reduce using rule 17 (command -> RECTFILL point point ; .)
+    CIRC            reduce using rule 17 (command -> RECTFILL point point ; .)
+    POLYLINE        reduce using rule 17 (command -> RECTFILL point point ; .)
+    FOR             reduce using rule 17 (command -> RECTFILL point point ; .)
+    VAR             reduce using rule 17 (command -> RECTFILL point point ; .)
+    $end            reduce using rule 17 (command -> RECTFILL point point ; .)
+    ENDFOR          reduce using rule 17 (command -> RECTFILL point point ; .)
+
+
+state 71
+
+    (16) command -> RECTFILL point size color . ;
+
+    ;               shift and go to state 83
+
+
+state 72
+
+    (18) command -> RECTFILL point size ; .
+
+    NEW             reduce using rule 18 (command -> RECTFILL point size ; .)
+    LOAD            reduce using rule 18 (command -> RECTFILL point size ; .)
+    SAVE            reduce using rule 18 (command -> RECTFILL point size ; .)
+    COLOR           reduce using rule 18 (command -> RECTFILL point size ; .)
+    POINT           reduce using rule 18 (command -> RECTFILL point size ; .)
+    LINE            reduce using rule 18 (command -> RECTFILL point size ; .)
+    RECT            reduce using rule 18 (command -> RECTFILL point size ; .)
+    RECTFILL        reduce using rule 18 (command -> RECTFILL point size ; .)
+    CIRC            reduce using rule 18 (command -> RECTFILL point size ; .)
+    POLYLINE        reduce using rule 18 (command -> RECTFILL point size ; .)
+    FOR             reduce using rule 18 (command -> RECTFILL point size ; .)
+    VAR             reduce using rule 18 (command -> RECTFILL point size ; .)
+    $end            reduce using rule 18 (command -> RECTFILL point size ; .)
+    ENDFOR          reduce using rule 18 (command -> RECTFILL point size ; .)
+
+
+state 73
+
+    (19) command -> CIRC point INT color . ;
+
+    ;               shift and go to state 84
+
+
+state 74
+
+    (20) command -> CIRC point INT ; .
+
+    NEW             reduce using rule 20 (command -> CIRC point INT ; .)
+    LOAD            reduce using rule 20 (command -> CIRC point INT ; .)
+    SAVE            reduce using rule 20 (command -> CIRC point INT ; .)
+    COLOR           reduce using rule 20 (command -> CIRC point INT ; .)
+    POINT           reduce using rule 20 (command -> CIRC point INT ; .)
+    LINE            reduce using rule 20 (command -> CIRC point INT ; .)
+    RECT            reduce using rule 20 (command -> CIRC point INT ; .)
+    RECTFILL        reduce using rule 20 (command -> CIRC point INT ; .)
+    CIRC            reduce using rule 20 (command -> CIRC point INT ; .)
+    POLYLINE        reduce using rule 20 (command -> CIRC point INT ; .)
+    FOR             reduce using rule 20 (command -> CIRC point INT ; .)
+    VAR             reduce using rule 20 (command -> CIRC point INT ; .)
+    $end            reduce using rule 20 (command -> CIRC point INT ; .)
+    ENDFOR          reduce using rule 20 (command -> CIRC point INT ; .)
+
+
+state 75
+
+    (21) command -> POLYLINE points color ; .
+
+    NEW             reduce using rule 21 (command -> POLYLINE points color ; .)
+    LOAD            reduce using rule 21 (command -> POLYLINE points color ; .)
+    SAVE            reduce using rule 21 (command -> POLYLINE points color ; .)
+    COLOR           reduce using rule 21 (command -> POLYLINE points color ; .)
+    POINT           reduce using rule 21 (command -> POLYLINE points color ; .)
+    LINE            reduce using rule 21 (command -> POLYLINE points color ; .)
+    RECT            reduce using rule 21 (command -> POLYLINE points color ; .)
+    RECTFILL        reduce using rule 21 (command -> POLYLINE points color ; .)
+    CIRC            reduce using rule 21 (command -> POLYLINE points color ; .)
+    POLYLINE        reduce using rule 21 (command -> POLYLINE points color ; .)
+    FOR             reduce using rule 21 (command -> POLYLINE points color ; .)
+    VAR             reduce using rule 21 (command -> POLYLINE points color ; .)
+    $end            reduce using rule 21 (command -> POLYLINE points color ; .)
+    ENDFOR          reduce using rule 21 (command -> POLYLINE points color ; .)
+
+
+state 76
+
+    (23) command -> FOR VAR IN [ . value DOTS value ] DO program ENDFOR ;
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    value                          shift and go to state 85
+
+state 77
+
+    (24) command -> VAR = value ; .
+
+    NEW             reduce using rule 24 (command -> VAR = value ; .)
+    LOAD            reduce using rule 24 (command -> VAR = value ; .)
+    SAVE            reduce using rule 24 (command -> VAR = value ; .)
+    COLOR           reduce using rule 24 (command -> VAR = value ; .)
+    POINT           reduce using rule 24 (command -> VAR = value ; .)
+    LINE            reduce using rule 24 (command -> VAR = value ; .)
+    RECT            reduce using rule 24 (command -> VAR = value ; .)
+    RECTFILL        reduce using rule 24 (command -> VAR = value ; .)
+    CIRC            reduce using rule 24 (command -> VAR = value ; .)
+    POLYLINE        reduce using rule 24 (command -> VAR = value ; .)
+    FOR             reduce using rule 24 (command -> VAR = value ; .)
+    VAR             reduce using rule 24 (command -> VAR = value ; .)
+    $end            reduce using rule 24 (command -> VAR = value ; .)
+    ENDFOR          reduce using rule 24 (command -> VAR = value ; .)
+
+
+state 78
+
+    (29) color -> value : value : . value
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    value                          shift and go to state 86
+
+state 79
+
+    (9) command -> LINE point point color ; .
+
+    NEW             reduce using rule 9 (command -> LINE point point color ; .)
+    LOAD            reduce using rule 9 (command -> LINE point point color ; .)
+    SAVE            reduce using rule 9 (command -> LINE point point color ; .)
+    COLOR           reduce using rule 9 (command -> LINE point point color ; .)
+    POINT           reduce using rule 9 (command -> LINE point point color ; .)
+    LINE            reduce using rule 9 (command -> LINE point point color ; .)
+    RECT            reduce using rule 9 (command -> LINE point point color ; .)
+    RECTFILL        reduce using rule 9 (command -> LINE point point color ; .)
+    CIRC            reduce using rule 9 (command -> LINE point point color ; .)
+    POLYLINE        reduce using rule 9 (command -> LINE point point color ; .)
+    FOR             reduce using rule 9 (command -> LINE point point color ; .)
+    VAR             reduce using rule 9 (command -> LINE point point color ; .)
+    $end            reduce using rule 9 (command -> LINE point point color ; .)
+    ENDFOR          reduce using rule 9 (command -> LINE point point color ; .)
+
+
+state 80
+
+    (11) command -> RECT point point color ; .
+
+    NEW             reduce using rule 11 (command -> RECT point point color ; .)
+    LOAD            reduce using rule 11 (command -> RECT point point color ; .)
+    SAVE            reduce using rule 11 (command -> RECT point point color ; .)
+    COLOR           reduce using rule 11 (command -> RECT point point color ; .)
+    POINT           reduce using rule 11 (command -> RECT point point color ; .)
+    LINE            reduce using rule 11 (command -> RECT point point color ; .)
+    RECT            reduce using rule 11 (command -> RECT point point color ; .)
+    RECTFILL        reduce using rule 11 (command -> RECT point point color ; .)
+    CIRC            reduce using rule 11 (command -> RECT point point color ; .)
+    POLYLINE        reduce using rule 11 (command -> RECT point point color ; .)
+    FOR             reduce using rule 11 (command -> RECT point point color ; .)
+    VAR             reduce using rule 11 (command -> RECT point point color ; .)
+    $end            reduce using rule 11 (command -> RECT point point color ; .)
+    ENDFOR          reduce using rule 11 (command -> RECT point point color ; .)
+
+
+state 81
+
+    (12) command -> RECT point size color ; .
+
+    NEW             reduce using rule 12 (command -> RECT point size color ; .)
+    LOAD            reduce using rule 12 (command -> RECT point size color ; .)
+    SAVE            reduce using rule 12 (command -> RECT point size color ; .)
+    COLOR           reduce using rule 12 (command -> RECT point size color ; .)
+    POINT           reduce using rule 12 (command -> RECT point size color ; .)
+    LINE            reduce using rule 12 (command -> RECT point size color ; .)
+    RECT            reduce using rule 12 (command -> RECT point size color ; .)
+    RECTFILL        reduce using rule 12 (command -> RECT point size color ; .)
+    CIRC            reduce using rule 12 (command -> RECT point size color ; .)
+    POLYLINE        reduce using rule 12 (command -> RECT point size color ; .)
+    FOR             reduce using rule 12 (command -> RECT point size color ; .)
+    VAR             reduce using rule 12 (command -> RECT point size color ; .)
+    $end            reduce using rule 12 (command -> RECT point size color ; .)
+    ENDFOR          reduce using rule 12 (command -> RECT point size color ; .)
+
+
+state 82
+
+    (15) command -> RECTFILL point point color ; .
+
+    NEW             reduce using rule 15 (command -> RECTFILL point point color ; .)
+    LOAD            reduce using rule 15 (command -> RECTFILL point point color ; .)
+    SAVE            reduce using rule 15 (command -> RECTFILL point point color ; .)
+    COLOR           reduce using rule 15 (command -> RECTFILL point point color ; .)
+    POINT           reduce using rule 15 (command -> RECTFILL point point color ; .)
+    LINE            reduce using rule 15 (command -> RECTFILL point point color ; .)
+    RECT            reduce using rule 15 (command -> RECTFILL point point color ; .)
+    RECTFILL        reduce using rule 15 (command -> RECTFILL point point color ; .)
+    CIRC            reduce using rule 15 (command -> RECTFILL point point color ; .)
+    POLYLINE        reduce using rule 15 (command -> RECTFILL point point color ; .)
+    FOR             reduce using rule 15 (command -> RECTFILL point point color ; .)
+    VAR             reduce using rule 15 (command -> RECTFILL point point color ; .)
+    $end            reduce using rule 15 (command -> RECTFILL point point color ; .)
+    ENDFOR          reduce using rule 15 (command -> RECTFILL point point color ; .)
+
+
+state 83
+
+    (16) command -> RECTFILL point size color ; .
+
+    NEW             reduce using rule 16 (command -> RECTFILL point size color ; .)
+    LOAD            reduce using rule 16 (command -> RECTFILL point size color ; .)
+    SAVE            reduce using rule 16 (command -> RECTFILL point size color ; .)
+    COLOR           reduce using rule 16 (command -> RECTFILL point size color ; .)
+    POINT           reduce using rule 16 (command -> RECTFILL point size color ; .)
+    LINE            reduce using rule 16 (command -> RECTFILL point size color ; .)
+    RECT            reduce using rule 16 (command -> RECTFILL point size color ; .)
+    RECTFILL        reduce using rule 16 (command -> RECTFILL point size color ; .)
+    CIRC            reduce using rule 16 (command -> RECTFILL point size color ; .)
+    POLYLINE        reduce using rule 16 (command -> RECTFILL point size color ; .)
+    FOR             reduce using rule 16 (command -> RECTFILL point size color ; .)
+    VAR             reduce using rule 16 (command -> RECTFILL point size color ; .)
+    $end            reduce using rule 16 (command -> RECTFILL point size color ; .)
+    ENDFOR          reduce using rule 16 (command -> RECTFILL point size color ; .)
+
+
+state 84
+
+    (19) command -> CIRC point INT color ; .
+
+    NEW             reduce using rule 19 (command -> CIRC point INT color ; .)
+    LOAD            reduce using rule 19 (command -> CIRC point INT color ; .)
+    SAVE            reduce using rule 19 (command -> CIRC point INT color ; .)
+    COLOR           reduce using rule 19 (command -> CIRC point INT color ; .)
+    POINT           reduce using rule 19 (command -> CIRC point INT color ; .)
+    LINE            reduce using rule 19 (command -> CIRC point INT color ; .)
+    RECT            reduce using rule 19 (command -> CIRC point INT color ; .)
+    RECTFILL        reduce using rule 19 (command -> CIRC point INT color ; .)
+    CIRC            reduce using rule 19 (command -> CIRC point INT color ; .)
+    POLYLINE        reduce using rule 19 (command -> CIRC point INT color ; .)
+    FOR             reduce using rule 19 (command -> CIRC point INT color ; .)
+    VAR             reduce using rule 19 (command -> CIRC point INT color ; .)
+    $end            reduce using rule 19 (command -> CIRC point INT color ; .)
+    ENDFOR          reduce using rule 19 (command -> CIRC point INT color ; .)
+
+
+state 85
+
+    (23) command -> FOR VAR IN [ value . DOTS value ] DO program ENDFOR ;
+
+    DOTS            shift and go to state 87
+
+
+state 86
+
+    (29) color -> value : value : value .
+
+    ;               reduce using rule 29 (color -> value : value : value .)
+
+
+state 87
+
+    (23) command -> FOR VAR IN [ value DOTS . value ] DO program ENDFOR ;
+    (30) value -> . INT
+    (31) value -> . VAR
+    (32) value -> . RAND value
+
+    INT             shift and go to state 18
+    VAR             shift and go to state 19
+    RAND            shift and go to state 20
+
+    value                          shift and go to state 88
+
+state 88
+
+    (23) command -> FOR VAR IN [ value DOTS value . ] DO program ENDFOR ;
+
+    ]               shift and go to state 89
+
+
+state 89
+
+    (23) command -> FOR VAR IN [ value DOTS value ] . DO program ENDFOR ;
+
+    DO              shift and go to state 90
+
+
+state 90
+
+    (23) command -> FOR VAR IN [ value DOTS value ] DO . program ENDFOR ;
+    (1) program -> . command
+    (2) program -> . program command
+    (3) command -> . NEW size color ;
+    (4) command -> . LOAD STR ;
+    (5) command -> . SAVE STR ;
+    (6) command -> . COLOR color ;
+    (7) command -> . POINT point color ;
+    (8) command -> . POINT point ;
+    (9) command -> . LINE point point color ;
+    (10) command -> . LINE point point ;
+    (11) command -> . RECT point point color ;
+    (12) command -> . RECT point size color ;
+    (13) command -> . RECT point point ;
+    (14) command -> . RECT point size ;
+    (15) command -> . RECTFILL point point color ;
+    (16) command -> . RECTFILL point size color ;
+    (17) command -> . RECTFILL point point ;
+    (18) command -> . RECTFILL point size ;
+    (19) command -> . CIRC point INT color ;
+    (20) command -> . CIRC point INT ;
+    (21) command -> . POLYLINE points color ;
+    (22) command -> . POLYLINE points ;
+    (23) command -> . FOR VAR IN [ value DOTS value ] DO program ENDFOR ;
+    (24) command -> . VAR = value ;
+
+    NEW             shift and go to state 3
+    LOAD            shift and go to state 4
+    SAVE            shift and go to state 5
+    COLOR           shift and go to state 6
+    POINT           shift and go to state 7
+    LINE            shift and go to state 8
+    RECT            shift and go to state 9
+    RECTFILL        shift and go to state 10
+    CIRC            shift and go to state 11
+    POLYLINE        shift and go to state 12
+    FOR             shift and go to state 13
+    VAR             shift and go to state 14
+
+    program                        shift and go to state 91
+    command                        shift and go to state 2
+
+state 91
+
+    (23) command -> FOR VAR IN [ value DOTS value ] DO program . ENDFOR ;
+    (2) program -> program . command
+    (3) command -> . NEW size color ;
+    (4) command -> . LOAD STR ;
+    (5) command -> . SAVE STR ;
+    (6) command -> . COLOR color ;
+    (7) command -> . POINT point color ;
+    (8) command -> . POINT point ;
+    (9) command -> . LINE point point color ;
+    (10) command -> . LINE point point ;
+    (11) command -> . RECT point point color ;
+    (12) command -> . RECT point size color ;
+    (13) command -> . RECT point point ;
+    (14) command -> . RECT point size ;
+    (15) command -> . RECTFILL point point color ;
+    (16) command -> . RECTFILL point size color ;
+    (17) command -> . RECTFILL point point ;
+    (18) command -> . RECTFILL point size ;
+    (19) command -> . CIRC point INT color ;
+    (20) command -> . CIRC point INT ;
+    (21) command -> . POLYLINE points color ;
+    (22) command -> . POLYLINE points ;
+    (23) command -> . FOR VAR IN [ value DOTS value ] DO program ENDFOR ;
+    (24) command -> . VAR = value ;
+
+    ENDFOR          shift and go to state 92
+    NEW             shift and go to state 3
+    LOAD            shift and go to state 4
+    SAVE            shift and go to state 5
+    COLOR           shift and go to state 6
+    POINT           shift and go to state 7
+    LINE            shift and go to state 8
+    RECT            shift and go to state 9
+    RECTFILL        shift and go to state 10
+    CIRC            shift and go to state 11
+    POLYLINE        shift and go to state 12
+    FOR             shift and go to state 13
+    VAR             shift and go to state 14
+
+    command                        shift and go to state 15
+
+state 92
+
+    (23) command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR . ;
+
+    ;               shift and go to state 93
+
+
+state 93
+
+    (23) command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR ; .
+
+    NEW             reduce using rule 23 (command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR ; .)
+    LOAD            reduce using rule 23 (command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR ; .)
+    SAVE            reduce using rule 23 (command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR ; .)
+    COLOR           reduce using rule 23 (command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR ; .)
+    POINT           reduce using rule 23 (command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR ; .)
+    LINE            reduce using rule 23 (command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR ; .)
+    RECT            reduce using rule 23 (command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR ; .)
+    RECTFILL        reduce using rule 23 (command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR ; .)
+    CIRC            reduce using rule 23 (command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR ; .)
+    POLYLINE        reduce using rule 23 (command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR ; .)
+    FOR             reduce using rule 23 (command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR ; .)
+    VAR             reduce using rule 23 (command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR ; .)
+    $end            reduce using rule 23 (command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR ; .)
+    ENDFOR          reduce using rule 23 (command -> FOR VAR IN [ value DOTS value ] DO program ENDFOR ; .)
+

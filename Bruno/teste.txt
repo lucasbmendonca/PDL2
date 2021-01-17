@@ -1,0 +1,12 @@
+make "i 10
+make "l 2
+while [ :i > 0 ] [
+fd :l rt 90
+make "i :i − 1
+make "l 1.75 * :l
+
+220 100 
+
+
+Instrução : comando Variavel Instruçao
+        | comando variave
