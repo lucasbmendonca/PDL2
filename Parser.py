@@ -15,6 +15,26 @@ class Parser:
         self.vars = {}   # Symbol Table
         self.color = (0, 0, 0)
 
+    def eval_point(self, point):
+        return (self.value(point[0]), self.value(point[1]))
+
+    def eval_size(self, size):
+        return (size[0], self.value(size[1]), self.value(size[2]))
+
+    def eval_color(self, color):
+        return (self.value(color[0]), self.value(color[1]), self.value(color[2]))
+
+    def value(self, val):
+        if type(val) == float:
+            return val
+
+        if val in self.vars:
+            return self.vars[val]
+
+        print(f"Variable {val} undefined")
+        self.vars[val] = 0
+        return 0
+
     def Parse(self, input, **kwargs):
         self.lexer = Lexer()
         self.lexer.Build(input,**kwargs)
