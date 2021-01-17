@@ -4,7 +4,7 @@ import sys
 import os
 
 relativePath = os.path.dirname(os.path.abspath(__file__))
-fullPath = relativePath + "\\ex5.logo"
+fullPath = relativePath + "\\ex6.logo"
 
 with open(fullPath, mode="r") as fh:
     contents = fh.read()

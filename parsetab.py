@@ -6,7 +6,7 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "NUMBER OPERATION SIGN VAR back bk fd forward home if ifelse left lt make pd pendown penup pu repeat right rt setpencolor setpos setx setxy sety while  program  :   command    program  :  program command    command  :  forward expression  \n                      |  fd expression   command  :  right value  \n                      |  rt value   command  :  left value  \n                      |  lt value   command  :  back value  \n                      |  bk value   command  :  setpos '[' value value ']' \n                        | setpos value value   command  :  setx value    command  :  sety value    command  :  home    command  :  pendown \n                      |  pd    command  :  penup \n                      |  pu    command  :  setpencolor '[' color ']'    color :  value value value    value  :   NUMBER\n                    |   VAR   command  :   make VAR value \n                    |     make VAR expression   expression  :   value OPERATION value\n                         |   value   command  :   if value SIGN value '[' program ']'\n                      |   ifelse value SIGN value '[' program ']'   command  :  repeat value '[' program ']'    command  :  while '[' value SIGN value ']' '[' program ']'  "
+_lr_signature = "NUMBER OPERATION SIGN VAR back bk fd forward home if ifelse left lt make pd pendown penup pu repeat right rt setpencolor setpos setx setxy sety while  program  :   command    program  :  program command    command  :  forward expression  \n                      |  fd expression   command  :  right expression  \n                      |  rt expression   command  :  left expression  \n                      |  lt expression   command  :  back expression  \n                      |  bk expression   command  :  setpos '[' value value ']' \n                        | setpos value value   command  :  setx value    command  :  sety value    command  :  home    command  :  pendown \n                      |  pd    command  :  penup \n                      |  pu    command  :  setpencolor '[' color ']'    color :  value value value    value  :   NUMBER\n                    |   VAR   command  :   make VAR value \n                    |     make VAR expression   expression  :   value OPERATION value\n                         |   value   command  :   if value SIGN value '[' program ']'\n                      |   ifelse value SIGN value '[' program ']'   command  :  repeat value '[' program ']'    command  :  while '[' value SIGN value ']' '[' program ']'  "
     
 _lr_action_items = {'forward':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[3,3,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,3,-26,-20,3,-11,3,3,-30,3,3,-28,-29,3,3,-31,]),'fd':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[4,4,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,4,-26,-20,4,-11,4,4,-30,4,4,-28,-29,4,4,-31,]),'right':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[5,5,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,5,-26,-20,5,-11,5,5,-30,5,5,-28,-29,5,5,-31,]),'rt':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[6,6,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,6,-26,-20,6,-11,6,6,-30,6,6,-28,-29,6,6,-31,]),'left':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[7,7,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,7,-26,-20,7,-11,7,7,-30,7,7,-28,-29,7,7,-31,]),'lt':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[8,8,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,8,-26,-20,8,-11,8,8,-30,8,8,-28,-29,8,8,-31,]),'back':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[9,9,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,9,-26,-20,9,-11,9,9,-30,9,9,-28,-29,9,9,-31,]),'bk':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[10,10,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,10,-26,-20,10,-11,10,10,-30,10,10,-28,-29,10,10,-31,]),'setpos':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[11,11,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,11,-26,-20,11,-11,11,11,-30,11,11,-28,-29,11,11,-31,]),'setx':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[12,12,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,12,-26,-20,12,-11,12,12,-30,12,12,-28,-29,12,12,-31,]),'sety':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[13,13,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,13,-26,-20,13,-11,13,13,-30,13,13,-28,-29,13,13,-31,]),'home':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[14,14,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,14,-26,-20,14,-11,14,14,-30,14,14,-28,-29,14,14,-31,]),'pendown':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[15,15,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,15,-26,-20,15,-11,15,15,-30,15,15,-28,-29,15,15,-31,]),'pd':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[16,16,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,16,-26,-20,16,-11,16,16,-30,16,16,-28,-29,16,16,-31,]),'penup':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[17,17,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,17,-26,-20,17,-11,17,17,-30,17,17,-28,-29,17,17,-31,]),'pu':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[18,18,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,18,-26,-20,18,-11,18,18,-30,18,18,-28,-29,18,18,-31,]),'setpencolor':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[19,19,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,19,-26,-20,19,-11,19,19,-30,19,19,-28,-29,19,19,-31,]),'make':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[20,20,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,20,-26,-20,20,-11,20,20,-30,20,20,-28,-29,20,20,-31,]),'if':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[21,21,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,21,-26,-20,21,-11,21,21,-30,21,21,-28,-29,21,21,-31,]),'ifelse':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[22,22,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,22,-26,-20,22,-11,22,22,-30,22,22,-28,-29,22,22,-31,]),'repeat':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[23,23,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,23,-26,-20,23,-11,23,23,-30,23,23,-28,-29,23,23,-31,]),'while':([0,1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,56,58,60,64,66,68,69,70,72,73,75,76,77,78,79,],[24,24,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,24,-26,-20,24,-11,24,24,-30,24,24,-28,-29,24,24,-31,]),'$end':([1,2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,52,53,58,60,66,70,75,76,79,],[0,-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,-24,-25,-26,-20,-11,-30,-28,-29,-31,]),']':([2,14,15,16,17,18,25,26,27,28,29,30,31,32,33,34,35,36,39,40,49,50,52,53,58,59,60,64,66,67,70,71,72,73,75,76,78,79,],[-1,-15,-16,-17,-18,-19,-2,-3,-27,-22,-23,-4,-5,-6,-7,-8,-9,-10,-13,-14,-12,60,-24,-25,-26,66,-20,70,-11,-21,-30,74,75,76,-28,-29,79,-31,]),'NUMBER':([3,4,5,6,7,8,9,10,11,12,13,21,22,23,28,29,37,38,41,42,46,47,48,51,54,55,61,65,],[28,28,28,28,28,28,28,28,28,28,28,28,28,28,-22,-23,28,28,28,28,28,28,28,28,28,28,28,28,]),'VAR':([3,4,5,6,7,8,9,10,11,12,13,20,21,22,23,28,29,37,38,41,42,46,47,48,51,54,55,61,65,],[29,29,29,29,29,29,29,29,29,29,29,42,29,29,29,-22,-23,29,29,29,29,29,29,29,29,29,29,29,29,]),'[':([11,19,24,28,29,45,62,63,74,],[37,41,46,-22,-23,56,68,69,77,]),'OPERATION':([27,28,29,52,],[47,-22,-23,47,]),'SIGN':([28,29,43,44,57,],[-22,-23,54,55,65,]),}
 
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,56,68,69,77,],[1,64,72,73,78,]),'command':([0,1,56,64,68,69,72,73,77,78,],[2,25,2,25,2,2,25,25,2,25,]),'expression':([3,4,42,],[26,30,53,]),'value':([3,4,5,6,7,8,9,10,11,12,13,21,22,23,37,38,41,42,46,47,48,51,54,55,61,65,],[27,27,31,32,33,34,35,36,38,39,40,43,44,45,48,49,51,52,57,58,59,61,62,63,67,71,]),'color':([41,],[50,]),}
+_lr_goto_items = {'program':([0,56,68,69,77,],[1,64,72,73,78,]),'command':([0,1,56,64,68,69,72,73,77,78,],[2,25,2,25,2,2,25,25,2,25,]),'expression':([3,4,5,6,7,8,9,10,42,],[26,30,31,32,33,34,35,36,53,]),'value':([3,4,5,6,7,8,9,10,11,12,13,21,22,23,37,38,41,42,46,47,48,51,54,55,61,65,],[27,27,27,27,27,27,27,27,38,39,40,43,44,45,48,49,51,52,57,58,59,61,62,63,67,71,]),'color':([41,],[50,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,35 +27,35 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> command','program',1,'p_program0','Parser.py',30),
-  ('program -> program command','program',2,'p_program1','Parser.py',34),
-  ('command -> forward expression','command',2,'p_command0','Parser.py',40),
-  ('command -> fd expression','command',2,'p_command0','Parser.py',41),
-  ('command -> right value','command',2,'p_command1','Parser.py',45),
-  ('command -> rt value','command',2,'p_command1','Parser.py',46),
-  ('command -> left value','command',2,'p_command2','Parser.py',50),
-  ('command -> lt value','command',2,'p_command2','Parser.py',51),
-  ('command -> back value','command',2,'p_command3','Parser.py',55),
-  ('command -> bk value','command',2,'p_command3','Parser.py',56),
-  ('command -> setpos [ value value ]','command',5,'p_command4','Parser.py',60),
-  ('command -> setpos value value','command',3,'p_command4','Parser.py',61),
-  ('command -> setx value','command',2,'p_command5','Parser.py',68),
-  ('command -> sety value','command',2,'p_command6','Parser.py',72),
-  ('command -> home','command',1,'p_command7','Parser.py',76),
-  ('command -> pendown','command',1,'p_command8','Parser.py',80),
-  ('command -> pd','command',1,'p_command8','Parser.py',81),
-  ('command -> penup','command',1,'p_command9','Parser.py',85),
-  ('command -> pu','command',1,'p_command9','Parser.py',86),
-  ('command -> setpencolor [ color ]','command',4,'p_command10','Parser.py',90),
-  ('color -> value value value','color',3,'p_color','Parser.py',96),
-  ('value -> NUMBER','value',1,'p_value','Parser.py',100),
-  ('value -> VAR','value',1,'p_value','Parser.py',101),
-  ('command -> make VAR value','command',3,'p_command11','Parser.py',105),
-  ('command -> make VAR expression','command',3,'p_command11','Parser.py',106),
-  ('expression -> value OPERATION value','expression',3,'p_expression','Parser.py',110),
-  ('expression -> value','expression',1,'p_expression','Parser.py',111),
-  ('command -> if value SIGN value [ program ]','command',7,'p_command12','Parser.py',115),
-  ('command -> ifelse value SIGN value [ program ]','command',7,'p_command12','Parser.py',116),
-  ('command -> repeat value [ program ]','command',5,'p_command13','Parser.py',125),
-  ('command -> while [ value SIGN value ] [ program ]','command',9,'p_command14','Parser.py',132),
+  ('program -> command','program',1,'p_program0','Parser.py',72),
+  ('program -> program command','program',2,'p_program1','Parser.py',76),
+  ('command -> forward expression','command',2,'p_command0','Parser.py',82),
+  ('command -> fd expression','command',2,'p_command0','Parser.py',83),
+  ('command -> right expression','command',2,'p_command1','Parser.py',87),
+  ('command -> rt expression','command',2,'p_command1','Parser.py',88),
+  ('command -> left expression','command',2,'p_command2','Parser.py',92),
+  ('command -> lt expression','command',2,'p_command2','Parser.py',93),
+  ('command -> back expression','command',2,'p_command3','Parser.py',97),
+  ('command -> bk expression','command',2,'p_command3','Parser.py',98),
+  ('command -> setpos [ value value ]','command',5,'p_command4','Parser.py',102),
+  ('command -> setpos value value','command',3,'p_command4','Parser.py',103),
+  ('command -> setx value','command',2,'p_command5','Parser.py',110),
+  ('command -> sety value','command',2,'p_command6','Parser.py',114),
+  ('command -> home','command',1,'p_command7','Parser.py',118),
+  ('command -> pendown','command',1,'p_command8','Parser.py',122),
+  ('command -> pd','command',1,'p_command8','Parser.py',123),
+  ('command -> penup','command',1,'p_command9','Parser.py',127),
+  ('command -> pu','command',1,'p_command9','Parser.py',128),
+  ('command -> setpencolor [ color ]','command',4,'p_command10','Parser.py',132),
+  ('color -> value value value','color',3,'p_color','Parser.py',138),
+  ('value -> NUMBER','value',1,'p_value','Parser.py',142),
+  ('value -> VAR','value',1,'p_value','Parser.py',143),
+  ('command -> make VAR value','command',3,'p_command11','Parser.py',151),
+  ('command -> make VAR expression','command',3,'p_command11','Parser.py',152),
+  ('expression -> value OPERATION value','expression',3,'p_expression','Parser.py',157),
+  ('expression -> value','expression',1,'p_expression','Parser.py',158),
+  ('command -> if value SIGN value [ program ]','command',7,'p_command12','Parser.py',169),
+  ('command -> ifelse value SIGN value [ program ]','command',7,'p_command12','Parser.py',170),
+  ('command -> repeat value [ program ]','command',5,'p_command13','Parser.py',179),
+  ('command -> while [ value SIGN value ] [ program ]','command',9,'p_command14','Parser.py',186),
 ]

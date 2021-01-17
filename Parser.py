@@ -25,6 +25,28 @@ class Parser:
         return (self.value(color[0]), self.value(color[1]), self.value(color[2]))
 
     def value(self, val):
+        _type = type(val)
+        type2 = Command
+        #verifica se é uma expressao
+        if _type == type2:
+            value1 = val.args['value1']
+            if type(value1) != float:
+                 if value1 in self.vars:
+                    value1 = self.vars[value1]
+            operator = val.args['op']
+            value2 = val.args['value2']
+            if type(value2) != float:
+                if value2 in self.vars:
+                    value2 = self.vars[value2]
+            if operator == '-':
+                val = float(eval("value1 - value2",{"value1": value1, "value2": value2}))
+            elif operator == '+':
+                val = float(eval("value1 + value2",{"value1": value1, "value2": value2}))
+            elif operator == '/':
+                val = float(eval("value1 / value2",{"value1": value1, "value2": value2}))
+            elif operator == '*':
+                val = float(eval("value1 * value2",{"value1": value1, "value2": value2}))
+
         if type(val) == float:
             return val
 
@@ -62,18 +84,18 @@ class Parser:
         p[0] = Command("forward", {'value': p[2]})
 
     def p_command1(self, p):
-        """  command  :  right value  
-                      |  rt value """
+        """  command  :  right expression  
+                      |  rt expression """
         p[0] = Command("right", {'value': p[2]})
 
     def p_command2(self, p):
-        """  command  :  left value  
-                      |  lt value """
+        """  command  :  left expression  
+                      |  lt expression """
         p[0] = Command("left", {'value': p[2]})
 
     def p_command3(self, p):
-        """  command  :  back value  
-                      |  bk value """
+        """  command  :  back expression  
+                      |  bk expression """
         p[0] = Command("back", {'value': p[2]})
     
     def p_command4(self, p):
@@ -119,12 +141,17 @@ class Parser:
     def p_value(self, p):
         """  value  :   NUMBER
                     |   VAR """
-        p[0] = p[1]
+
+        value = p[1]
+        if type(p[1]) != float:
+            value = p[1].replace('"',':')
+        p[0] = value
 
     def p_command11(self, p):
         """  command  :   make VAR value 
                     |     make VAR expression """
-        p[0] = Command("assign", {"target": p[2], "source": p[3]})
+        var_value = p[2].replace('"',':')
+        p[0] = Command("assign", {"target": var_value, "source": p[3]})
 
     def p_expression(self,p):
         """  expression  :   value OPERATION value
@@ -141,7 +168,7 @@ class Parser:
     def p_command12(self, p):
         """  command  :   if value SIGN value '[' program ']'
                       |   ifelse value SIGN value '[' program ']' """
-        p[0] = Command(p[1], {
+        p[0] = Command("if", {
             'value1': p[2],
             'sign': p[3],
             'value2': p[4],
@@ -158,7 +185,8 @@ class Parser:
     def p_command14(self, p):
         """  command  :  while '[' value SIGN value ']' '[' program ']'  """
         p[0] = Command("while", {
-            'min': p[5],
-            'max': p[3],
+            'value1': p[3],
+            'value2': p[5],
+            'sign': p[4],
             'code': p[8]
         })

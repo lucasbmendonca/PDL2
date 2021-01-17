@@ -11,12 +11,12 @@ Rule 1     program -> command
 Rule 2     program -> program command
 Rule 3     command -> forward expression
 Rule 4     command -> fd expression
-Rule 5     command -> right value
-Rule 6     command -> rt value
-Rule 7     command -> left value
-Rule 8     command -> lt value
-Rule 9     command -> back value
-Rule 10    command -> bk value
+Rule 5     command -> right expression
+Rule 6     command -> rt expression
+Rule 7     command -> left expression
+Rule 8     command -> lt expression
+Rule 9     command -> back expression
+Rule 10    command -> bk expression
 Rule 11    command -> setpos [ value value ]
 Rule 12    command -> setpos value value
 Rule 13    command -> setx value
@@ -76,9 +76,9 @@ Nonterminals, with rules where they appear
 
 color                : 20
 command              : 1 2
-expression           : 3 4 25
+expression           : 3 4 5 6 7 8 9 10 25
 program              : 2 28 29 30 31 0
-value                : 5 6 7 8 9 10 11 11 12 12 13 14 21 21 21 24 26 26 27 28 28 29 29 30 31 31
+value                : 11 11 12 12 13 14 21 21 21 24 26 26 27 28 28 29 29 30 31 31
 
 Parsing method: LALR
 
@@ -89,12 +89,12 @@ state 0
     (2) program -> . program command
     (3) command -> . forward expression
     (4) command -> . fd expression
-    (5) command -> . right value
-    (6) command -> . rt value
-    (7) command -> . left value
-    (8) command -> . lt value
-    (9) command -> . back value
-    (10) command -> . bk value
+    (5) command -> . right expression
+    (6) command -> . rt expression
+    (7) command -> . left expression
+    (8) command -> . lt expression
+    (9) command -> . back expression
+    (10) command -> . bk expression
     (11) command -> . setpos [ value value ]
     (12) command -> . setpos value value
     (13) command -> . setx value
@@ -144,12 +144,12 @@ state 1
     (2) program -> program . command
     (3) command -> . forward expression
     (4) command -> . fd expression
-    (5) command -> . right value
-    (6) command -> . rt value
-    (7) command -> . left value
-    (8) command -> . lt value
-    (9) command -> . back value
-    (10) command -> . bk value
+    (5) command -> . right expression
+    (6) command -> . rt expression
+    (7) command -> . left expression
+    (8) command -> . lt expression
+    (9) command -> . back expression
+    (10) command -> . bk expression
     (11) command -> . setpos [ value value ]
     (12) command -> . setpos value value
     (13) command -> . setx value
@@ -252,69 +252,87 @@ state 4
 
 state 5
 
-    (5) command -> right . value
+    (5) command -> right . expression
+    (26) expression -> . value OPERATION value
+    (27) expression -> . value
     (22) value -> . NUMBER
     (23) value -> . VAR
 
     NUMBER          shift and go to state 28
     VAR             shift and go to state 29
 
-    value                          shift and go to state 31
+    expression                     shift and go to state 31
+    value                          shift and go to state 27
 
 state 6
 
-    (6) command -> rt . value
+    (6) command -> rt . expression
+    (26) expression -> . value OPERATION value
+    (27) expression -> . value
     (22) value -> . NUMBER
     (23) value -> . VAR
 
     NUMBER          shift and go to state 28
     VAR             shift and go to state 29
 
-    value                          shift and go to state 32
+    expression                     shift and go to state 32
+    value                          shift and go to state 27
 
 state 7
 
-    (7) command -> left . value
+    (7) command -> left . expression
+    (26) expression -> . value OPERATION value
+    (27) expression -> . value
     (22) value -> . NUMBER
     (23) value -> . VAR
 
     NUMBER          shift and go to state 28
     VAR             shift and go to state 29
 
-    value                          shift and go to state 33
+    expression                     shift and go to state 33
+    value                          shift and go to state 27
 
 state 8
 
-    (8) command -> lt . value
+    (8) command -> lt . expression
+    (26) expression -> . value OPERATION value
+    (27) expression -> . value
     (22) value -> . NUMBER
     (23) value -> . VAR
 
     NUMBER          shift and go to state 28
     VAR             shift and go to state 29
 
-    value                          shift and go to state 34
+    expression                     shift and go to state 34
+    value                          shift and go to state 27
 
 state 9
 
-    (9) command -> back . value
+    (9) command -> back . expression
+    (26) expression -> . value OPERATION value
+    (27) expression -> . value
     (22) value -> . NUMBER
     (23) value -> . VAR
 
     NUMBER          shift and go to state 28
     VAR             shift and go to state 29
 
-    value                          shift and go to state 35
+    expression                     shift and go to state 35
+    value                          shift and go to state 27
 
 state 10
 
-    (10) command -> bk . value
+    (10) command -> bk . expression
+    (26) expression -> . value OPERATION value
+    (27) expression -> . value
     (22) value -> . NUMBER
     (23) value -> . VAR
 
     NUMBER          shift and go to state 28
     VAR             shift and go to state 29
 
-    value                          shift and go to state 36
+    expression                     shift and go to state 36
+    value                          shift and go to state 27
 
 state 11
 
@@ -750,182 +768,182 @@ state 30
 
 state 31
 
-    (5) command -> right value .
+    (5) command -> right expression .
 
-    forward         reduce using rule 5 (command -> right value .)
-    fd              reduce using rule 5 (command -> right value .)
-    right           reduce using rule 5 (command -> right value .)
-    rt              reduce using rule 5 (command -> right value .)
-    left            reduce using rule 5 (command -> right value .)
-    lt              reduce using rule 5 (command -> right value .)
-    back            reduce using rule 5 (command -> right value .)
-    bk              reduce using rule 5 (command -> right value .)
-    setpos          reduce using rule 5 (command -> right value .)
-    setx            reduce using rule 5 (command -> right value .)
-    sety            reduce using rule 5 (command -> right value .)
-    home            reduce using rule 5 (command -> right value .)
-    pendown         reduce using rule 5 (command -> right value .)
-    pd              reduce using rule 5 (command -> right value .)
-    penup           reduce using rule 5 (command -> right value .)
-    pu              reduce using rule 5 (command -> right value .)
-    setpencolor     reduce using rule 5 (command -> right value .)
-    make            reduce using rule 5 (command -> right value .)
-    if              reduce using rule 5 (command -> right value .)
-    ifelse          reduce using rule 5 (command -> right value .)
-    repeat          reduce using rule 5 (command -> right value .)
-    while           reduce using rule 5 (command -> right value .)
-    $end            reduce using rule 5 (command -> right value .)
-    ]               reduce using rule 5 (command -> right value .)
+    forward         reduce using rule 5 (command -> right expression .)
+    fd              reduce using rule 5 (command -> right expression .)
+    right           reduce using rule 5 (command -> right expression .)
+    rt              reduce using rule 5 (command -> right expression .)
+    left            reduce using rule 5 (command -> right expression .)
+    lt              reduce using rule 5 (command -> right expression .)
+    back            reduce using rule 5 (command -> right expression .)
+    bk              reduce using rule 5 (command -> right expression .)
+    setpos          reduce using rule 5 (command -> right expression .)
+    setx            reduce using rule 5 (command -> right expression .)
+    sety            reduce using rule 5 (command -> right expression .)
+    home            reduce using rule 5 (command -> right expression .)
+    pendown         reduce using rule 5 (command -> right expression .)
+    pd              reduce using rule 5 (command -> right expression .)
+    penup           reduce using rule 5 (command -> right expression .)
+    pu              reduce using rule 5 (command -> right expression .)
+    setpencolor     reduce using rule 5 (command -> right expression .)
+    make            reduce using rule 5 (command -> right expression .)
+    if              reduce using rule 5 (command -> right expression .)
+    ifelse          reduce using rule 5 (command -> right expression .)
+    repeat          reduce using rule 5 (command -> right expression .)
+    while           reduce using rule 5 (command -> right expression .)
+    $end            reduce using rule 5 (command -> right expression .)
+    ]               reduce using rule 5 (command -> right expression .)
 
 
 state 32
 
-    (6) command -> rt value .
+    (6) command -> rt expression .
 
-    forward         reduce using rule 6 (command -> rt value .)
-    fd              reduce using rule 6 (command -> rt value .)
-    right           reduce using rule 6 (command -> rt value .)
-    rt              reduce using rule 6 (command -> rt value .)
-    left            reduce using rule 6 (command -> rt value .)
-    lt              reduce using rule 6 (command -> rt value .)
-    back            reduce using rule 6 (command -> rt value .)
-    bk              reduce using rule 6 (command -> rt value .)
-    setpos          reduce using rule 6 (command -> rt value .)
-    setx            reduce using rule 6 (command -> rt value .)
-    sety            reduce using rule 6 (command -> rt value .)
-    home            reduce using rule 6 (command -> rt value .)
-    pendown         reduce using rule 6 (command -> rt value .)
-    pd              reduce using rule 6 (command -> rt value .)
-    penup           reduce using rule 6 (command -> rt value .)
-    pu              reduce using rule 6 (command -> rt value .)
-    setpencolor     reduce using rule 6 (command -> rt value .)
-    make            reduce using rule 6 (command -> rt value .)
-    if              reduce using rule 6 (command -> rt value .)
-    ifelse          reduce using rule 6 (command -> rt value .)
-    repeat          reduce using rule 6 (command -> rt value .)
-    while           reduce using rule 6 (command -> rt value .)
-    $end            reduce using rule 6 (command -> rt value .)
-    ]               reduce using rule 6 (command -> rt value .)
+    forward         reduce using rule 6 (command -> rt expression .)
+    fd              reduce using rule 6 (command -> rt expression .)
+    right           reduce using rule 6 (command -> rt expression .)
+    rt              reduce using rule 6 (command -> rt expression .)
+    left            reduce using rule 6 (command -> rt expression .)
+    lt              reduce using rule 6 (command -> rt expression .)
+    back            reduce using rule 6 (command -> rt expression .)
+    bk              reduce using rule 6 (command -> rt expression .)
+    setpos          reduce using rule 6 (command -> rt expression .)
+    setx            reduce using rule 6 (command -> rt expression .)
+    sety            reduce using rule 6 (command -> rt expression .)
+    home            reduce using rule 6 (command -> rt expression .)
+    pendown         reduce using rule 6 (command -> rt expression .)
+    pd              reduce using rule 6 (command -> rt expression .)
+    penup           reduce using rule 6 (command -> rt expression .)
+    pu              reduce using rule 6 (command -> rt expression .)
+    setpencolor     reduce using rule 6 (command -> rt expression .)
+    make            reduce using rule 6 (command -> rt expression .)
+    if              reduce using rule 6 (command -> rt expression .)
+    ifelse          reduce using rule 6 (command -> rt expression .)
+    repeat          reduce using rule 6 (command -> rt expression .)
+    while           reduce using rule 6 (command -> rt expression .)
+    $end            reduce using rule 6 (command -> rt expression .)
+    ]               reduce using rule 6 (command -> rt expression .)
 
 
 state 33
 
-    (7) command -> left value .
+    (7) command -> left expression .
 
-    forward         reduce using rule 7 (command -> left value .)
-    fd              reduce using rule 7 (command -> left value .)
-    right           reduce using rule 7 (command -> left value .)
-    rt              reduce using rule 7 (command -> left value .)
-    left            reduce using rule 7 (command -> left value .)
-    lt              reduce using rule 7 (command -> left value .)
-    back            reduce using rule 7 (command -> left value .)
-    bk              reduce using rule 7 (command -> left value .)
-    setpos          reduce using rule 7 (command -> left value .)
-    setx            reduce using rule 7 (command -> left value .)
-    sety            reduce using rule 7 (command -> left value .)
-    home            reduce using rule 7 (command -> left value .)
-    pendown         reduce using rule 7 (command -> left value .)
-    pd              reduce using rule 7 (command -> left value .)
-    penup           reduce using rule 7 (command -> left value .)
-    pu              reduce using rule 7 (command -> left value .)
-    setpencolor     reduce using rule 7 (command -> left value .)
-    make            reduce using rule 7 (command -> left value .)
-    if              reduce using rule 7 (command -> left value .)
-    ifelse          reduce using rule 7 (command -> left value .)
-    repeat          reduce using rule 7 (command -> left value .)
-    while           reduce using rule 7 (command -> left value .)
-    $end            reduce using rule 7 (command -> left value .)
-    ]               reduce using rule 7 (command -> left value .)
+    forward         reduce using rule 7 (command -> left expression .)
+    fd              reduce using rule 7 (command -> left expression .)
+    right           reduce using rule 7 (command -> left expression .)
+    rt              reduce using rule 7 (command -> left expression .)
+    left            reduce using rule 7 (command -> left expression .)
+    lt              reduce using rule 7 (command -> left expression .)
+    back            reduce using rule 7 (command -> left expression .)
+    bk              reduce using rule 7 (command -> left expression .)
+    setpos          reduce using rule 7 (command -> left expression .)
+    setx            reduce using rule 7 (command -> left expression .)
+    sety            reduce using rule 7 (command -> left expression .)
+    home            reduce using rule 7 (command -> left expression .)
+    pendown         reduce using rule 7 (command -> left expression .)
+    pd              reduce using rule 7 (command -> left expression .)
+    penup           reduce using rule 7 (command -> left expression .)
+    pu              reduce using rule 7 (command -> left expression .)
+    setpencolor     reduce using rule 7 (command -> left expression .)
+    make            reduce using rule 7 (command -> left expression .)
+    if              reduce using rule 7 (command -> left expression .)
+    ifelse          reduce using rule 7 (command -> left expression .)
+    repeat          reduce using rule 7 (command -> left expression .)
+    while           reduce using rule 7 (command -> left expression .)
+    $end            reduce using rule 7 (command -> left expression .)
+    ]               reduce using rule 7 (command -> left expression .)
 
 
 state 34
 
-    (8) command -> lt value .
+    (8) command -> lt expression .
 
-    forward         reduce using rule 8 (command -> lt value .)
-    fd              reduce using rule 8 (command -> lt value .)
-    right           reduce using rule 8 (command -> lt value .)
-    rt              reduce using rule 8 (command -> lt value .)
-    left            reduce using rule 8 (command -> lt value .)
-    lt              reduce using rule 8 (command -> lt value .)
-    back            reduce using rule 8 (command -> lt value .)
-    bk              reduce using rule 8 (command -> lt value .)
-    setpos          reduce using rule 8 (command -> lt value .)
-    setx            reduce using rule 8 (command -> lt value .)
-    sety            reduce using rule 8 (command -> lt value .)
-    home            reduce using rule 8 (command -> lt value .)
-    pendown         reduce using rule 8 (command -> lt value .)
-    pd              reduce using rule 8 (command -> lt value .)
-    penup           reduce using rule 8 (command -> lt value .)
-    pu              reduce using rule 8 (command -> lt value .)
-    setpencolor     reduce using rule 8 (command -> lt value .)
-    make            reduce using rule 8 (command -> lt value .)
-    if              reduce using rule 8 (command -> lt value .)
-    ifelse          reduce using rule 8 (command -> lt value .)
-    repeat          reduce using rule 8 (command -> lt value .)
-    while           reduce using rule 8 (command -> lt value .)
-    $end            reduce using rule 8 (command -> lt value .)
-    ]               reduce using rule 8 (command -> lt value .)
+    forward         reduce using rule 8 (command -> lt expression .)
+    fd              reduce using rule 8 (command -> lt expression .)
+    right           reduce using rule 8 (command -> lt expression .)
+    rt              reduce using rule 8 (command -> lt expression .)
+    left            reduce using rule 8 (command -> lt expression .)
+    lt              reduce using rule 8 (command -> lt expression .)
+    back            reduce using rule 8 (command -> lt expression .)
+    bk              reduce using rule 8 (command -> lt expression .)
+    setpos          reduce using rule 8 (command -> lt expression .)
+    setx            reduce using rule 8 (command -> lt expression .)
+    sety            reduce using rule 8 (command -> lt expression .)
+    home            reduce using rule 8 (command -> lt expression .)
+    pendown         reduce using rule 8 (command -> lt expression .)
+    pd              reduce using rule 8 (command -> lt expression .)
+    penup           reduce using rule 8 (command -> lt expression .)
+    pu              reduce using rule 8 (command -> lt expression .)
+    setpencolor     reduce using rule 8 (command -> lt expression .)
+    make            reduce using rule 8 (command -> lt expression .)
+    if              reduce using rule 8 (command -> lt expression .)
+    ifelse          reduce using rule 8 (command -> lt expression .)
+    repeat          reduce using rule 8 (command -> lt expression .)
+    while           reduce using rule 8 (command -> lt expression .)
+    $end            reduce using rule 8 (command -> lt expression .)
+    ]               reduce using rule 8 (command -> lt expression .)
 
 
 state 35
 
-    (9) command -> back value .
+    (9) command -> back expression .
 
-    forward         reduce using rule 9 (command -> back value .)
-    fd              reduce using rule 9 (command -> back value .)
-    right           reduce using rule 9 (command -> back value .)
-    rt              reduce using rule 9 (command -> back value .)
-    left            reduce using rule 9 (command -> back value .)
-    lt              reduce using rule 9 (command -> back value .)
-    back            reduce using rule 9 (command -> back value .)
-    bk              reduce using rule 9 (command -> back value .)
-    setpos          reduce using rule 9 (command -> back value .)
-    setx            reduce using rule 9 (command -> back value .)
-    sety            reduce using rule 9 (command -> back value .)
-    home            reduce using rule 9 (command -> back value .)
-    pendown         reduce using rule 9 (command -> back value .)
-    pd              reduce using rule 9 (command -> back value .)
-    penup           reduce using rule 9 (command -> back value .)
-    pu              reduce using rule 9 (command -> back value .)
-    setpencolor     reduce using rule 9 (command -> back value .)
-    make            reduce using rule 9 (command -> back value .)
-    if              reduce using rule 9 (command -> back value .)
-    ifelse          reduce using rule 9 (command -> back value .)
-    repeat          reduce using rule 9 (command -> back value .)
-    while           reduce using rule 9 (command -> back value .)
-    $end            reduce using rule 9 (command -> back value .)
-    ]               reduce using rule 9 (command -> back value .)
+    forward         reduce using rule 9 (command -> back expression .)
+    fd              reduce using rule 9 (command -> back expression .)
+    right           reduce using rule 9 (command -> back expression .)
+    rt              reduce using rule 9 (command -> back expression .)
+    left            reduce using rule 9 (command -> back expression .)
+    lt              reduce using rule 9 (command -> back expression .)
+    back            reduce using rule 9 (command -> back expression .)
+    bk              reduce using rule 9 (command -> back expression .)
+    setpos          reduce using rule 9 (command -> back expression .)
+    setx            reduce using rule 9 (command -> back expression .)
+    sety            reduce using rule 9 (command -> back expression .)
+    home            reduce using rule 9 (command -> back expression .)
+    pendown         reduce using rule 9 (command -> back expression .)
+    pd              reduce using rule 9 (command -> back expression .)
+    penup           reduce using rule 9 (command -> back expression .)
+    pu              reduce using rule 9 (command -> back expression .)
+    setpencolor     reduce using rule 9 (command -> back expression .)
+    make            reduce using rule 9 (command -> back expression .)
+    if              reduce using rule 9 (command -> back expression .)
+    ifelse          reduce using rule 9 (command -> back expression .)
+    repeat          reduce using rule 9 (command -> back expression .)
+    while           reduce using rule 9 (command -> back expression .)
+    $end            reduce using rule 9 (command -> back expression .)
+    ]               reduce using rule 9 (command -> back expression .)
 
 
 state 36
 
-    (10) command -> bk value .
+    (10) command -> bk expression .
 
-    forward         reduce using rule 10 (command -> bk value .)
-    fd              reduce using rule 10 (command -> bk value .)
-    right           reduce using rule 10 (command -> bk value .)
-    rt              reduce using rule 10 (command -> bk value .)
-    left            reduce using rule 10 (command -> bk value .)
-    lt              reduce using rule 10 (command -> bk value .)
-    back            reduce using rule 10 (command -> bk value .)
-    bk              reduce using rule 10 (command -> bk value .)
-    setpos          reduce using rule 10 (command -> bk value .)
-    setx            reduce using rule 10 (command -> bk value .)
-    sety            reduce using rule 10 (command -> bk value .)
-    home            reduce using rule 10 (command -> bk value .)
-    pendown         reduce using rule 10 (command -> bk value .)
-    pd              reduce using rule 10 (command -> bk value .)
-    penup           reduce using rule 10 (command -> bk value .)
-    pu              reduce using rule 10 (command -> bk value .)
-    setpencolor     reduce using rule 10 (command -> bk value .)
-    make            reduce using rule 10 (command -> bk value .)
-    if              reduce using rule 10 (command -> bk value .)
-    ifelse          reduce using rule 10 (command -> bk value .)
-    repeat          reduce using rule 10 (command -> bk value .)
-    while           reduce using rule 10 (command -> bk value .)
-    $end            reduce using rule 10 (command -> bk value .)
-    ]               reduce using rule 10 (command -> bk value .)
+    forward         reduce using rule 10 (command -> bk expression .)
+    fd              reduce using rule 10 (command -> bk expression .)
+    right           reduce using rule 10 (command -> bk expression .)
+    rt              reduce using rule 10 (command -> bk expression .)
+    left            reduce using rule 10 (command -> bk expression .)
+    lt              reduce using rule 10 (command -> bk expression .)
+    back            reduce using rule 10 (command -> bk expression .)
+    bk              reduce using rule 10 (command -> bk expression .)
+    setpos          reduce using rule 10 (command -> bk expression .)
+    setx            reduce using rule 10 (command -> bk expression .)
+    sety            reduce using rule 10 (command -> bk expression .)
+    home            reduce using rule 10 (command -> bk expression .)
+    pendown         reduce using rule 10 (command -> bk expression .)
+    pd              reduce using rule 10 (command -> bk expression .)
+    penup           reduce using rule 10 (command -> bk expression .)
+    pu              reduce using rule 10 (command -> bk expression .)
+    setpencolor     reduce using rule 10 (command -> bk expression .)
+    make            reduce using rule 10 (command -> bk expression .)
+    if              reduce using rule 10 (command -> bk expression .)
+    ifelse          reduce using rule 10 (command -> bk expression .)
+    repeat          reduce using rule 10 (command -> bk expression .)
+    while           reduce using rule 10 (command -> bk expression .)
+    $end            reduce using rule 10 (command -> bk expression .)
+    ]               reduce using rule 10 (command -> bk expression .)
 
 
 state 37
@@ -1281,12 +1299,12 @@ state 56
     (2) program -> . program command
     (3) command -> . forward expression
     (4) command -> . fd expression
-    (5) command -> . right value
-    (6) command -> . rt value
-    (7) command -> . left value
-    (8) command -> . lt value
-    (9) command -> . back value
-    (10) command -> . bk value
+    (5) command -> . right expression
+    (6) command -> . rt expression
+    (7) command -> . left expression
+    (8) command -> . lt expression
+    (9) command -> . back expression
+    (10) command -> . bk expression
     (11) command -> . setpos [ value value ]
     (12) command -> . setpos value value
     (13) command -> . setx value
@@ -1435,12 +1453,12 @@ state 64
     (2) program -> program . command
     (3) command -> . forward expression
     (4) command -> . fd expression
-    (5) command -> . right value
-    (6) command -> . rt value
-    (7) command -> . left value
-    (8) command -> . lt value
-    (9) command -> . back value
-    (10) command -> . bk value
+    (5) command -> . right expression
+    (6) command -> . rt expression
+    (7) command -> . left expression
+    (8) command -> . lt expression
+    (9) command -> . back expression
+    (10) command -> . bk expression
     (11) command -> . setpos [ value value ]
     (12) command -> . setpos value value
     (13) command -> . setx value
@@ -1539,12 +1557,12 @@ state 68
     (2) program -> . program command
     (3) command -> . forward expression
     (4) command -> . fd expression
-    (5) command -> . right value
-    (6) command -> . rt value
-    (7) command -> . left value
-    (8) command -> . lt value
-    (9) command -> . back value
-    (10) command -> . bk value
+    (5) command -> . right expression
+    (6) command -> . rt expression
+    (7) command -> . left expression
+    (8) command -> . lt expression
+    (9) command -> . back expression
+    (10) command -> . bk expression
     (11) command -> . setpos [ value value ]
     (12) command -> . setpos value value
     (13) command -> . setx value
@@ -1595,12 +1613,12 @@ state 69
     (2) program -> . program command
     (3) command -> . forward expression
     (4) command -> . fd expression
-    (5) command -> . right value
-    (6) command -> . rt value
-    (7) command -> . left value
-    (8) command -> . lt value
-    (9) command -> . back value
-    (10) command -> . bk value
+    (5) command -> . right expression
+    (6) command -> . rt expression
+    (7) command -> . left expression
+    (8) command -> . lt expression
+    (9) command -> . back expression
+    (10) command -> . bk expression
     (11) command -> . setpos [ value value ]
     (12) command -> . setpos value value
     (13) command -> . setx value
@@ -1687,12 +1705,12 @@ state 72
     (2) program -> program . command
     (3) command -> . forward expression
     (4) command -> . fd expression
-    (5) command -> . right value
-    (6) command -> . rt value
-    (7) command -> . left value
-    (8) command -> . lt value
-    (9) command -> . back value
-    (10) command -> . bk value
+    (5) command -> . right expression
+    (6) command -> . rt expression
+    (7) command -> . left expression
+    (8) command -> . lt expression
+    (9) command -> . back expression
+    (10) command -> . bk expression
     (11) command -> . setpos [ value value ]
     (12) command -> . setpos value value
     (13) command -> . setx value
@@ -1742,12 +1760,12 @@ state 73
     (2) program -> program . command
     (3) command -> . forward expression
     (4) command -> . fd expression
-    (5) command -> . right value
-    (6) command -> . rt value
-    (7) command -> . left value
-    (8) command -> . lt value
-    (9) command -> . back value
-    (10) command -> . bk value
+    (5) command -> . right expression
+    (6) command -> . rt expression
+    (7) command -> . left expression
+    (8) command -> . lt expression
+    (9) command -> . back expression
+    (10) command -> . bk expression
     (11) command -> . setpos [ value value ]
     (12) command -> . setpos value value
     (13) command -> . setx value
@@ -1865,12 +1883,12 @@ state 77
     (2) program -> . program command
     (3) command -> . forward expression
     (4) command -> . fd expression
-    (5) command -> . right value
-    (6) command -> . rt value
-    (7) command -> . left value
-    (8) command -> . lt value
-    (9) command -> . back value
-    (10) command -> . bk value
+    (5) command -> . right expression
+    (6) command -> . rt expression
+    (7) command -> . left expression
+    (8) command -> . lt expression
+    (9) command -> . back expression
+    (10) command -> . bk expression
     (11) command -> . setpos [ value value ]
     (12) command -> . setpos value value
     (13) command -> . setx value
@@ -1920,12 +1938,12 @@ state 78
     (2) program -> program . command
     (3) command -> . forward expression
     (4) command -> . fd expression
-    (5) command -> . right value
-    (6) command -> . rt value
-    (7) command -> . left value
-    (8) command -> . lt value
-    (9) command -> . back value
-    (10) command -> . bk value
+    (5) command -> . right expression
+    (6) command -> . rt expression
+    (7) command -> . left expression
+    (8) command -> . lt expression
+    (9) command -> . back expression
+    (10) command -> . bk expression
     (11) command -> . setpos [ value value ]
     (12) command -> . setpos value value
     (13) command -> . setx value
