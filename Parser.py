@@ -37,8 +37,8 @@ class Parser:
         p[0] = lst
 
     def p_command0(self, p):
-        """  command  :  forward value  
-                      |  fd value """
+        """  command  :  forward expression  
+                      |  fd expression """
         p[0] = Command("forward", {'value': p[2]})
 
     def p_command1(self, p):
@@ -107,17 +107,20 @@ class Parser:
         p[0] = Command("assign", {"target": p[2], "source": p[3]})
 
     def p_expression(self,p):
-        """  expression  :   value OPERATION value """
-        p[0] = Command("expression",{
-            'value1': p[1],
-            'op': p[2],
-            'value2': p[3]
+        """  expression  :   value OPERATION value
+                         |   value """
+        if len(p)>2:
+            p[0] = Command("expression",{
+                'value1': p[1],
+                'op': p[2],
+                'value2': p[3]
         })
+        else:
+            p[0] = p[1]
 
     def p_command12(self, p):
         """  command  :   if value SIGN value '[' program ']'
                       |   ifelse value SIGN value '[' program ']' """
-
         p[0] = Command(p[1], {
             'value1': p[2],
             'sign': p[3],

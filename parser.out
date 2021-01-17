@@ -9,8 +9,8 @@ Grammar
 Rule 0     S' -> program
 Rule 1     program -> command
 Rule 2     program -> program command
-Rule 3     command -> forward value
-Rule 4     command -> fd value
+Rule 3     command -> forward expression
+Rule 4     command -> fd expression
 Rule 5     command -> right value
 Rule 6     command -> rt value
 Rule 7     command -> left value
@@ -33,27 +33,28 @@ Rule 23    value -> VAR
 Rule 24    command -> make VAR value
 Rule 25    command -> make VAR expression
 Rule 26    expression -> value OPERATION value
-Rule 27    command -> if value SIGN value [ program ]
-Rule 28    command -> ifelse value SIGN value [ program ]
-Rule 29    command -> repeat value [ program ]
-Rule 30    command -> while [ value SIGN value ] [ program ]
+Rule 27    expression -> value
+Rule 28    command -> if value SIGN value [ program ]
+Rule 29    command -> ifelse value SIGN value [ program ]
+Rule 30    command -> repeat value [ program ]
+Rule 31    command -> while [ value SIGN value ] [ program ]
 
 Terminals, with rules where they appear
 
 NUMBER               : 22
 OPERATION            : 26
-SIGN                 : 27 28 30
+SIGN                 : 28 29 31
 VAR                  : 23 24 25
-[                    : 11 20 27 28 29 30 30
-]                    : 11 20 27 28 29 30 30
+[                    : 11 20 28 29 30 31 31
+]                    : 11 20 28 29 30 31 31
 back                 : 9
 bk                   : 10
 error                : 
 fd                   : 4
 forward              : 3
 home                 : 15
-if                   : 27
-ifelse               : 28
+if                   : 28
+ifelse               : 29
 left                 : 7
 lt                   : 8
 make                 : 24 25
@@ -61,7 +62,7 @@ pd                   : 17
 pendown              : 16
 penup                : 18
 pu                   : 19
-repeat               : 29
+repeat               : 30
 right                : 5
 rt                   : 6
 setpencolor          : 20
@@ -69,15 +70,15 @@ setpos               : 11 12
 setx                 : 13
 setxy                : 
 sety                 : 14
-while                : 30
+while                : 31
 
 Nonterminals, with rules where they appear
 
 color                : 20
 command              : 1 2
-expression           : 25
-program              : 2 27 28 29 30 0
-value                : 3 4 5 6 7 8 9 10 11 11 12 12 13 14 21 21 21 24 26 26 27 27 28 28 29 30 30
+expression           : 3 4 25
+program              : 2 28 29 30 31 0
+value                : 5 6 7 8 9 10 11 11 12 12 13 14 21 21 21 24 26 26 27 28 28 29 29 30 31 31
 
 Parsing method: LALR
 
@@ -86,8 +87,8 @@ state 0
     (0) S' -> . program
     (1) program -> . command
     (2) program -> . program command
-    (3) command -> . forward value
-    (4) command -> . fd value
+    (3) command -> . forward expression
+    (4) command -> . fd expression
     (5) command -> . right value
     (6) command -> . rt value
     (7) command -> . left value
@@ -106,10 +107,10 @@ state 0
     (20) command -> . setpencolor [ color ]
     (24) command -> . make VAR value
     (25) command -> . make VAR expression
-    (27) command -> . if value SIGN value [ program ]
-    (28) command -> . ifelse value SIGN value [ program ]
-    (29) command -> . repeat value [ program ]
-    (30) command -> . while [ value SIGN value ] [ program ]
+    (28) command -> . if value SIGN value [ program ]
+    (29) command -> . ifelse value SIGN value [ program ]
+    (30) command -> . repeat value [ program ]
+    (31) command -> . while [ value SIGN value ] [ program ]
 
     forward         shift and go to state 3
     fd              shift and go to state 4
@@ -141,8 +142,8 @@ state 1
 
     (0) S' -> program .
     (2) program -> program . command
-    (3) command -> . forward value
-    (4) command -> . fd value
+    (3) command -> . forward expression
+    (4) command -> . fd expression
     (5) command -> . right value
     (6) command -> . rt value
     (7) command -> . left value
@@ -161,10 +162,10 @@ state 1
     (20) command -> . setpencolor [ color ]
     (24) command -> . make VAR value
     (25) command -> . make VAR expression
-    (27) command -> . if value SIGN value [ program ]
-    (28) command -> . ifelse value SIGN value [ program ]
-    (29) command -> . repeat value [ program ]
-    (30) command -> . while [ value SIGN value ] [ program ]
+    (28) command -> . if value SIGN value [ program ]
+    (29) command -> . ifelse value SIGN value [ program ]
+    (30) command -> . repeat value [ program ]
+    (31) command -> . while [ value SIGN value ] [ program ]
 
     forward         shift and go to state 3
     fd              shift and go to state 4
@@ -223,25 +224,31 @@ state 2
 
 state 3
 
-    (3) command -> forward . value
+    (3) command -> forward . expression
+    (26) expression -> . value OPERATION value
+    (27) expression -> . value
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 26
+    expression                     shift and go to state 26
+    value                          shift and go to state 27
 
 state 4
 
-    (4) command -> fd . value
+    (4) command -> fd . expression
+    (26) expression -> . value OPERATION value
+    (27) expression -> . value
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 29
+    expression                     shift and go to state 30
+    value                          shift and go to state 27
 
 state 5
 
@@ -249,10 +256,10 @@ state 5
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 30
+    value                          shift and go to state 31
 
 state 6
 
@@ -260,10 +267,10 @@ state 6
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 31
+    value                          shift and go to state 32
 
 state 7
 
@@ -271,10 +278,10 @@ state 7
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 32
+    value                          shift and go to state 33
 
 state 8
 
@@ -282,10 +289,10 @@ state 8
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 33
+    value                          shift and go to state 34
 
 state 9
 
@@ -293,10 +300,10 @@ state 9
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 34
+    value                          shift and go to state 35
 
 state 10
 
@@ -304,10 +311,10 @@ state 10
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 35
+    value                          shift and go to state 36
 
 state 11
 
@@ -316,11 +323,11 @@ state 11
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    [               shift and go to state 36
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    [               shift and go to state 37
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 37
+    value                          shift and go to state 38
 
 state 12
 
@@ -328,10 +335,10 @@ state 12
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 38
+    value                          shift and go to state 39
 
 state 13
 
@@ -339,10 +346,10 @@ state 13
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 39
+    value                          shift and go to state 40
 
 state 14
 
@@ -498,7 +505,7 @@ state 19
 
     (20) command -> setpencolor . [ color ]
 
-    [               shift and go to state 40
+    [               shift and go to state 41
 
 
 state 20
@@ -506,47 +513,47 @@ state 20
     (24) command -> make . VAR value
     (25) command -> make . VAR expression
 
-    VAR             shift and go to state 41
+    VAR             shift and go to state 42
 
 
 state 21
 
-    (27) command -> if . value SIGN value [ program ]
+    (28) command -> if . value SIGN value [ program ]
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
-
-    value                          shift and go to state 42
-
-state 22
-
-    (28) command -> ifelse . value SIGN value [ program ]
-    (22) value -> . NUMBER
-    (23) value -> . VAR
-
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
     value                          shift and go to state 43
 
-state 23
+state 22
 
-    (29) command -> repeat . value [ program ]
+    (29) command -> ifelse . value SIGN value [ program ]
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
     value                          shift and go to state 44
 
+state 23
+
+    (30) command -> repeat . value [ program ]
+    (22) value -> . NUMBER
+    (23) value -> . VAR
+
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
+
+    value                          shift and go to state 45
+
 state 24
 
-    (30) command -> while . [ value SIGN value ] [ program ]
+    (31) command -> while . [ value SIGN value ] [ program ]
 
-    [               shift and go to state 45
+    [               shift and go to state 46
 
 
 state 25
@@ -581,38 +588,71 @@ state 25
 
 state 26
 
-    (3) command -> forward value .
+    (3) command -> forward expression .
 
-    forward         reduce using rule 3 (command -> forward value .)
-    fd              reduce using rule 3 (command -> forward value .)
-    right           reduce using rule 3 (command -> forward value .)
-    rt              reduce using rule 3 (command -> forward value .)
-    left            reduce using rule 3 (command -> forward value .)
-    lt              reduce using rule 3 (command -> forward value .)
-    back            reduce using rule 3 (command -> forward value .)
-    bk              reduce using rule 3 (command -> forward value .)
-    setpos          reduce using rule 3 (command -> forward value .)
-    setx            reduce using rule 3 (command -> forward value .)
-    sety            reduce using rule 3 (command -> forward value .)
-    home            reduce using rule 3 (command -> forward value .)
-    pendown         reduce using rule 3 (command -> forward value .)
-    pd              reduce using rule 3 (command -> forward value .)
-    penup           reduce using rule 3 (command -> forward value .)
-    pu              reduce using rule 3 (command -> forward value .)
-    setpencolor     reduce using rule 3 (command -> forward value .)
-    make            reduce using rule 3 (command -> forward value .)
-    if              reduce using rule 3 (command -> forward value .)
-    ifelse          reduce using rule 3 (command -> forward value .)
-    repeat          reduce using rule 3 (command -> forward value .)
-    while           reduce using rule 3 (command -> forward value .)
-    $end            reduce using rule 3 (command -> forward value .)
-    ]               reduce using rule 3 (command -> forward value .)
+    forward         reduce using rule 3 (command -> forward expression .)
+    fd              reduce using rule 3 (command -> forward expression .)
+    right           reduce using rule 3 (command -> forward expression .)
+    rt              reduce using rule 3 (command -> forward expression .)
+    left            reduce using rule 3 (command -> forward expression .)
+    lt              reduce using rule 3 (command -> forward expression .)
+    back            reduce using rule 3 (command -> forward expression .)
+    bk              reduce using rule 3 (command -> forward expression .)
+    setpos          reduce using rule 3 (command -> forward expression .)
+    setx            reduce using rule 3 (command -> forward expression .)
+    sety            reduce using rule 3 (command -> forward expression .)
+    home            reduce using rule 3 (command -> forward expression .)
+    pendown         reduce using rule 3 (command -> forward expression .)
+    pd              reduce using rule 3 (command -> forward expression .)
+    penup           reduce using rule 3 (command -> forward expression .)
+    pu              reduce using rule 3 (command -> forward expression .)
+    setpencolor     reduce using rule 3 (command -> forward expression .)
+    make            reduce using rule 3 (command -> forward expression .)
+    if              reduce using rule 3 (command -> forward expression .)
+    ifelse          reduce using rule 3 (command -> forward expression .)
+    repeat          reduce using rule 3 (command -> forward expression .)
+    while           reduce using rule 3 (command -> forward expression .)
+    $end            reduce using rule 3 (command -> forward expression .)
+    ]               reduce using rule 3 (command -> forward expression .)
 
 
 state 27
 
+    (26) expression -> value . OPERATION value
+    (27) expression -> value .
+
+    OPERATION       shift and go to state 47
+    forward         reduce using rule 27 (expression -> value .)
+    fd              reduce using rule 27 (expression -> value .)
+    right           reduce using rule 27 (expression -> value .)
+    rt              reduce using rule 27 (expression -> value .)
+    left            reduce using rule 27 (expression -> value .)
+    lt              reduce using rule 27 (expression -> value .)
+    back            reduce using rule 27 (expression -> value .)
+    bk              reduce using rule 27 (expression -> value .)
+    setpos          reduce using rule 27 (expression -> value .)
+    setx            reduce using rule 27 (expression -> value .)
+    sety            reduce using rule 27 (expression -> value .)
+    home            reduce using rule 27 (expression -> value .)
+    pendown         reduce using rule 27 (expression -> value .)
+    pd              reduce using rule 27 (expression -> value .)
+    penup           reduce using rule 27 (expression -> value .)
+    pu              reduce using rule 27 (expression -> value .)
+    setpencolor     reduce using rule 27 (expression -> value .)
+    make            reduce using rule 27 (expression -> value .)
+    if              reduce using rule 27 (expression -> value .)
+    ifelse          reduce using rule 27 (expression -> value .)
+    repeat          reduce using rule 27 (expression -> value .)
+    while           reduce using rule 27 (expression -> value .)
+    $end            reduce using rule 27 (expression -> value .)
+    ]               reduce using rule 27 (expression -> value .)
+
+
+state 28
+
     (22) value -> NUMBER .
 
+    OPERATION       reduce using rule 22 (value -> NUMBER .)
     forward         reduce using rule 22 (value -> NUMBER .)
     fd              reduce using rule 22 (value -> NUMBER .)
     right           reduce using rule 22 (value -> NUMBER .)
@@ -641,13 +681,13 @@ state 27
     VAR             reduce using rule 22 (value -> NUMBER .)
     SIGN            reduce using rule 22 (value -> NUMBER .)
     [               reduce using rule 22 (value -> NUMBER .)
-    OPERATION       reduce using rule 22 (value -> NUMBER .)
 
 
-state 28
+state 29
 
     (23) value -> VAR .
 
+    OPERATION       reduce using rule 23 (value -> VAR .)
     forward         reduce using rule 23 (value -> VAR .)
     fd              reduce using rule 23 (value -> VAR .)
     right           reduce using rule 23 (value -> VAR .)
@@ -676,40 +716,39 @@ state 28
     VAR             reduce using rule 23 (value -> VAR .)
     SIGN            reduce using rule 23 (value -> VAR .)
     [               reduce using rule 23 (value -> VAR .)
-    OPERATION       reduce using rule 23 (value -> VAR .)
-
-
-state 29
-
-    (4) command -> fd value .
-
-    forward         reduce using rule 4 (command -> fd value .)
-    fd              reduce using rule 4 (command -> fd value .)
-    right           reduce using rule 4 (command -> fd value .)
-    rt              reduce using rule 4 (command -> fd value .)
-    left            reduce using rule 4 (command -> fd value .)
-    lt              reduce using rule 4 (command -> fd value .)
-    back            reduce using rule 4 (command -> fd value .)
-    bk              reduce using rule 4 (command -> fd value .)
-    setpos          reduce using rule 4 (command -> fd value .)
-    setx            reduce using rule 4 (command -> fd value .)
-    sety            reduce using rule 4 (command -> fd value .)
-    home            reduce using rule 4 (command -> fd value .)
-    pendown         reduce using rule 4 (command -> fd value .)
-    pd              reduce using rule 4 (command -> fd value .)
-    penup           reduce using rule 4 (command -> fd value .)
-    pu              reduce using rule 4 (command -> fd value .)
-    setpencolor     reduce using rule 4 (command -> fd value .)
-    make            reduce using rule 4 (command -> fd value .)
-    if              reduce using rule 4 (command -> fd value .)
-    ifelse          reduce using rule 4 (command -> fd value .)
-    repeat          reduce using rule 4 (command -> fd value .)
-    while           reduce using rule 4 (command -> fd value .)
-    $end            reduce using rule 4 (command -> fd value .)
-    ]               reduce using rule 4 (command -> fd value .)
 
 
 state 30
+
+    (4) command -> fd expression .
+
+    forward         reduce using rule 4 (command -> fd expression .)
+    fd              reduce using rule 4 (command -> fd expression .)
+    right           reduce using rule 4 (command -> fd expression .)
+    rt              reduce using rule 4 (command -> fd expression .)
+    left            reduce using rule 4 (command -> fd expression .)
+    lt              reduce using rule 4 (command -> fd expression .)
+    back            reduce using rule 4 (command -> fd expression .)
+    bk              reduce using rule 4 (command -> fd expression .)
+    setpos          reduce using rule 4 (command -> fd expression .)
+    setx            reduce using rule 4 (command -> fd expression .)
+    sety            reduce using rule 4 (command -> fd expression .)
+    home            reduce using rule 4 (command -> fd expression .)
+    pendown         reduce using rule 4 (command -> fd expression .)
+    pd              reduce using rule 4 (command -> fd expression .)
+    penup           reduce using rule 4 (command -> fd expression .)
+    pu              reduce using rule 4 (command -> fd expression .)
+    setpencolor     reduce using rule 4 (command -> fd expression .)
+    make            reduce using rule 4 (command -> fd expression .)
+    if              reduce using rule 4 (command -> fd expression .)
+    ifelse          reduce using rule 4 (command -> fd expression .)
+    repeat          reduce using rule 4 (command -> fd expression .)
+    while           reduce using rule 4 (command -> fd expression .)
+    $end            reduce using rule 4 (command -> fd expression .)
+    ]               reduce using rule 4 (command -> fd expression .)
+
+
+state 31
 
     (5) command -> right value .
 
@@ -739,7 +778,7 @@ state 30
     ]               reduce using rule 5 (command -> right value .)
 
 
-state 31
+state 32
 
     (6) command -> rt value .
 
@@ -769,7 +808,7 @@ state 31
     ]               reduce using rule 6 (command -> rt value .)
 
 
-state 32
+state 33
 
     (7) command -> left value .
 
@@ -799,7 +838,7 @@ state 32
     ]               reduce using rule 7 (command -> left value .)
 
 
-state 33
+state 34
 
     (8) command -> lt value .
 
@@ -829,7 +868,7 @@ state 33
     ]               reduce using rule 8 (command -> lt value .)
 
 
-state 34
+state 35
 
     (9) command -> back value .
 
@@ -859,7 +898,7 @@ state 34
     ]               reduce using rule 9 (command -> back value .)
 
 
-state 35
+state 36
 
     (10) command -> bk value .
 
@@ -889,29 +928,29 @@ state 35
     ]               reduce using rule 10 (command -> bk value .)
 
 
-state 36
+state 37
 
     (11) command -> setpos [ . value value ]
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 46
+    value                          shift and go to state 48
 
-state 37
+state 38
 
     (12) command -> setpos value . value
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 47
+    value                          shift and go to state 49
 
-state 38
+state 39
 
     (13) command -> setx value .
 
@@ -941,7 +980,7 @@ state 38
     ]               reduce using rule 13 (command -> setx value .)
 
 
-state 39
+state 40
 
     (14) command -> sety value .
 
@@ -971,77 +1010,89 @@ state 39
     ]               reduce using rule 14 (command -> sety value .)
 
 
-state 40
+state 41
 
     (20) command -> setpencolor [ . color ]
     (21) color -> . value value value
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    color                          shift and go to state 48
-    value                          shift and go to state 49
+    color                          shift and go to state 50
+    value                          shift and go to state 51
 
-state 41
+state 42
 
     (24) command -> make VAR . value
     (25) command -> make VAR . expression
     (22) value -> . NUMBER
     (23) value -> . VAR
     (26) expression -> . value OPERATION value
+    (27) expression -> . value
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 50
-    expression                     shift and go to state 51
-
-state 42
-
-    (27) command -> if value . SIGN value [ program ]
-
-    SIGN            shift and go to state 52
-
+    value                          shift and go to state 52
+    expression                     shift and go to state 53
 
 state 43
 
-    (28) command -> ifelse value . SIGN value [ program ]
+    (28) command -> if value . SIGN value [ program ]
 
-    SIGN            shift and go to state 53
+    SIGN            shift and go to state 54
 
 
 state 44
 
-    (29) command -> repeat value . [ program ]
+    (29) command -> ifelse value . SIGN value [ program ]
 
-    [               shift and go to state 54
+    SIGN            shift and go to state 55
 
 
 state 45
 
-    (30) command -> while [ . value SIGN value ] [ program ]
+    (30) command -> repeat value . [ program ]
+
+    [               shift and go to state 56
+
+
+state 46
+
+    (31) command -> while [ . value SIGN value ] [ program ]
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 55
+    value                          shift and go to state 57
 
-state 46
+state 47
+
+    (26) expression -> value OPERATION . value
+    (22) value -> . NUMBER
+    (23) value -> . VAR
+
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
+
+    value                          shift and go to state 58
+
+state 48
 
     (11) command -> setpos [ value . value ]
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 56
+    value                          shift and go to state 59
 
-state 47
+state 49
 
     (12) command -> setpos value value .
 
@@ -1071,29 +1122,54 @@ state 47
     ]               reduce using rule 12 (command -> setpos value value .)
 
 
-state 48
+state 50
 
     (20) command -> setpencolor [ color . ]
 
-    ]               shift and go to state 57
+    ]               shift and go to state 60
 
 
-state 49
+state 51
 
     (21) color -> value . value value
     (22) value -> . NUMBER
     (23) value -> . VAR
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    value                          shift and go to state 58
+    value                          shift and go to state 61
 
-state 50
+state 52
 
     (24) command -> make VAR value .
     (26) expression -> value . OPERATION value
+    (27) expression -> value .
 
+  ! reduce/reduce conflict for forward resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for fd resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for right resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for rt resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for left resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for lt resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for back resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for bk resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for setpos resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for setx resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for sety resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for home resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for pendown resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for pd resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for penup resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for pu resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for setpencolor resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for make resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for if resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for ifelse resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for repeat resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for while resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for $end resolved using rule 24 (command -> make VAR value .)
+  ! reduce/reduce conflict for ] resolved using rule 24 (command -> make VAR value .)
     forward         reduce using rule 24 (command -> make VAR value .)
     fd              reduce using rule 24 (command -> make VAR value .)
     right           reduce using rule 24 (command -> make VAR value .)
@@ -1118,10 +1194,35 @@ state 50
     while           reduce using rule 24 (command -> make VAR value .)
     $end            reduce using rule 24 (command -> make VAR value .)
     ]               reduce using rule 24 (command -> make VAR value .)
-    OPERATION       shift and go to state 59
+    OPERATION       shift and go to state 47
+
+  ! forward         [ reduce using rule 27 (expression -> value .) ]
+  ! fd              [ reduce using rule 27 (expression -> value .) ]
+  ! right           [ reduce using rule 27 (expression -> value .) ]
+  ! rt              [ reduce using rule 27 (expression -> value .) ]
+  ! left            [ reduce using rule 27 (expression -> value .) ]
+  ! lt              [ reduce using rule 27 (expression -> value .) ]
+  ! back            [ reduce using rule 27 (expression -> value .) ]
+  ! bk              [ reduce using rule 27 (expression -> value .) ]
+  ! setpos          [ reduce using rule 27 (expression -> value .) ]
+  ! setx            [ reduce using rule 27 (expression -> value .) ]
+  ! sety            [ reduce using rule 27 (expression -> value .) ]
+  ! home            [ reduce using rule 27 (expression -> value .) ]
+  ! pendown         [ reduce using rule 27 (expression -> value .) ]
+  ! pd              [ reduce using rule 27 (expression -> value .) ]
+  ! penup           [ reduce using rule 27 (expression -> value .) ]
+  ! pu              [ reduce using rule 27 (expression -> value .) ]
+  ! setpencolor     [ reduce using rule 27 (expression -> value .) ]
+  ! make            [ reduce using rule 27 (expression -> value .) ]
+  ! if              [ reduce using rule 27 (expression -> value .) ]
+  ! ifelse          [ reduce using rule 27 (expression -> value .) ]
+  ! repeat          [ reduce using rule 27 (expression -> value .) ]
+  ! while           [ reduce using rule 27 (expression -> value .) ]
+  ! $end            [ reduce using rule 27 (expression -> value .) ]
+  ! ]               [ reduce using rule 27 (expression -> value .) ]
 
 
-state 51
+state 53
 
     (25) command -> make VAR expression .
 
@@ -1151,170 +1252,35 @@ state 51
     ]               reduce using rule 25 (command -> make VAR expression .)
 
 
-state 52
-
-    (27) command -> if value SIGN . value [ program ]
-    (22) value -> . NUMBER
-    (23) value -> . VAR
-
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
-
-    value                          shift and go to state 60
-
-state 53
-
-    (28) command -> ifelse value SIGN . value [ program ]
-    (22) value -> . NUMBER
-    (23) value -> . VAR
-
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
-
-    value                          shift and go to state 61
-
 state 54
 
-    (29) command -> repeat value [ . program ]
-    (1) program -> . command
-    (2) program -> . program command
-    (3) command -> . forward value
-    (4) command -> . fd value
-    (5) command -> . right value
-    (6) command -> . rt value
-    (7) command -> . left value
-    (8) command -> . lt value
-    (9) command -> . back value
-    (10) command -> . bk value
-    (11) command -> . setpos [ value value ]
-    (12) command -> . setpos value value
-    (13) command -> . setx value
-    (14) command -> . sety value
-    (15) command -> . home
-    (16) command -> . pendown
-    (17) command -> . pd
-    (18) command -> . penup
-    (19) command -> . pu
-    (20) command -> . setpencolor [ color ]
-    (24) command -> . make VAR value
-    (25) command -> . make VAR expression
-    (27) command -> . if value SIGN value [ program ]
-    (28) command -> . ifelse value SIGN value [ program ]
-    (29) command -> . repeat value [ program ]
-    (30) command -> . while [ value SIGN value ] [ program ]
+    (28) command -> if value SIGN . value [ program ]
+    (22) value -> . NUMBER
+    (23) value -> . VAR
 
-    forward         shift and go to state 3
-    fd              shift and go to state 4
-    right           shift and go to state 5
-    rt              shift and go to state 6
-    left            shift and go to state 7
-    lt              shift and go to state 8
-    back            shift and go to state 9
-    bk              shift and go to state 10
-    setpos          shift and go to state 11
-    setx            shift and go to state 12
-    sety            shift and go to state 13
-    home            shift and go to state 14
-    pendown         shift and go to state 15
-    pd              shift and go to state 16
-    penup           shift and go to state 17
-    pu              shift and go to state 18
-    setpencolor     shift and go to state 19
-    make            shift and go to state 20
-    if              shift and go to state 21
-    ifelse          shift and go to state 22
-    repeat          shift and go to state 23
-    while           shift and go to state 24
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
-    program                        shift and go to state 62
-    command                        shift and go to state 2
+    value                          shift and go to state 62
 
 state 55
 
-    (30) command -> while [ value . SIGN value ] [ program ]
+    (29) command -> ifelse value SIGN . value [ program ]
+    (22) value -> . NUMBER
+    (23) value -> . VAR
 
-    SIGN            shift and go to state 63
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
 
+    value                          shift and go to state 63
 
 state 56
 
-    (11) command -> setpos [ value value . ]
-
-    ]               shift and go to state 64
-
-
-state 57
-
-    (20) command -> setpencolor [ color ] .
-
-    forward         reduce using rule 20 (command -> setpencolor [ color ] .)
-    fd              reduce using rule 20 (command -> setpencolor [ color ] .)
-    right           reduce using rule 20 (command -> setpencolor [ color ] .)
-    rt              reduce using rule 20 (command -> setpencolor [ color ] .)
-    left            reduce using rule 20 (command -> setpencolor [ color ] .)
-    lt              reduce using rule 20 (command -> setpencolor [ color ] .)
-    back            reduce using rule 20 (command -> setpencolor [ color ] .)
-    bk              reduce using rule 20 (command -> setpencolor [ color ] .)
-    setpos          reduce using rule 20 (command -> setpencolor [ color ] .)
-    setx            reduce using rule 20 (command -> setpencolor [ color ] .)
-    sety            reduce using rule 20 (command -> setpencolor [ color ] .)
-    home            reduce using rule 20 (command -> setpencolor [ color ] .)
-    pendown         reduce using rule 20 (command -> setpencolor [ color ] .)
-    pd              reduce using rule 20 (command -> setpencolor [ color ] .)
-    penup           reduce using rule 20 (command -> setpencolor [ color ] .)
-    pu              reduce using rule 20 (command -> setpencolor [ color ] .)
-    setpencolor     reduce using rule 20 (command -> setpencolor [ color ] .)
-    make            reduce using rule 20 (command -> setpencolor [ color ] .)
-    if              reduce using rule 20 (command -> setpencolor [ color ] .)
-    ifelse          reduce using rule 20 (command -> setpencolor [ color ] .)
-    repeat          reduce using rule 20 (command -> setpencolor [ color ] .)
-    while           reduce using rule 20 (command -> setpencolor [ color ] .)
-    $end            reduce using rule 20 (command -> setpencolor [ color ] .)
-    ]               reduce using rule 20 (command -> setpencolor [ color ] .)
-
-
-state 58
-
-    (21) color -> value value . value
-    (22) value -> . NUMBER
-    (23) value -> . VAR
-
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
-
-    value                          shift and go to state 65
-
-state 59
-
-    (26) expression -> value OPERATION . value
-    (22) value -> . NUMBER
-    (23) value -> . VAR
-
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
-
-    value                          shift and go to state 66
-
-state 60
-
-    (27) command -> if value SIGN value . [ program ]
-
-    [               shift and go to state 67
-
-
-state 61
-
-    (28) command -> ifelse value SIGN value . [ program ]
-
-    [               shift and go to state 68
-
-
-state 62
-
-    (29) command -> repeat value [ program . ]
-    (2) program -> program . command
-    (3) command -> . forward value
-    (4) command -> . fd value
+    (30) command -> repeat value [ . program ]
+    (1) program -> . command
+    (2) program -> . program command
+    (3) command -> . forward expression
+    (4) command -> . fd expression
     (5) command -> . right value
     (6) command -> . rt value
     (7) command -> . left value
@@ -1333,12 +1299,11 @@ state 62
     (20) command -> . setpencolor [ color ]
     (24) command -> . make VAR value
     (25) command -> . make VAR expression
-    (27) command -> . if value SIGN value [ program ]
-    (28) command -> . ifelse value SIGN value [ program ]
-    (29) command -> . repeat value [ program ]
-    (30) command -> . while [ value SIGN value ] [ program ]
+    (28) command -> . if value SIGN value [ program ]
+    (29) command -> . ifelse value SIGN value [ program ]
+    (30) command -> . repeat value [ program ]
+    (31) command -> . while [ value SIGN value ] [ program ]
 
-    ]               shift and go to state 69
     forward         shift and go to state 3
     fd              shift and go to state 4
     right           shift and go to state 5
@@ -1362,57 +1327,17 @@ state 62
     repeat          shift and go to state 23
     while           shift and go to state 24
 
-    command                        shift and go to state 25
+    program                        shift and go to state 64
+    command                        shift and go to state 2
 
-state 63
+state 57
 
-    (30) command -> while [ value SIGN . value ] [ program ]
-    (22) value -> . NUMBER
-    (23) value -> . VAR
+    (31) command -> while [ value . SIGN value ] [ program ]
 
-    NUMBER          shift and go to state 27
-    VAR             shift and go to state 28
-
-    value                          shift and go to state 70
-
-state 64
-
-    (11) command -> setpos [ value value ] .
-
-    forward         reduce using rule 11 (command -> setpos [ value value ] .)
-    fd              reduce using rule 11 (command -> setpos [ value value ] .)
-    right           reduce using rule 11 (command -> setpos [ value value ] .)
-    rt              reduce using rule 11 (command -> setpos [ value value ] .)
-    left            reduce using rule 11 (command -> setpos [ value value ] .)
-    lt              reduce using rule 11 (command -> setpos [ value value ] .)
-    back            reduce using rule 11 (command -> setpos [ value value ] .)
-    bk              reduce using rule 11 (command -> setpos [ value value ] .)
-    setpos          reduce using rule 11 (command -> setpos [ value value ] .)
-    setx            reduce using rule 11 (command -> setpos [ value value ] .)
-    sety            reduce using rule 11 (command -> setpos [ value value ] .)
-    home            reduce using rule 11 (command -> setpos [ value value ] .)
-    pendown         reduce using rule 11 (command -> setpos [ value value ] .)
-    pd              reduce using rule 11 (command -> setpos [ value value ] .)
-    penup           reduce using rule 11 (command -> setpos [ value value ] .)
-    pu              reduce using rule 11 (command -> setpos [ value value ] .)
-    setpencolor     reduce using rule 11 (command -> setpos [ value value ] .)
-    make            reduce using rule 11 (command -> setpos [ value value ] .)
-    if              reduce using rule 11 (command -> setpos [ value value ] .)
-    ifelse          reduce using rule 11 (command -> setpos [ value value ] .)
-    repeat          reduce using rule 11 (command -> setpos [ value value ] .)
-    while           reduce using rule 11 (command -> setpos [ value value ] .)
-    $end            reduce using rule 11 (command -> setpos [ value value ] .)
-    ]               reduce using rule 11 (command -> setpos [ value value ] .)
+    SIGN            shift and go to state 65
 
 
-state 65
-
-    (21) color -> value value value .
-
-    ]               reduce using rule 21 (color -> value value value .)
-
-
-state 66
+state 58
 
     (26) expression -> value OPERATION value .
 
@@ -1442,13 +1367,74 @@ state 66
     ]               reduce using rule 26 (expression -> value OPERATION value .)
 
 
-state 67
+state 59
 
-    (27) command -> if value SIGN value [ . program ]
-    (1) program -> . command
-    (2) program -> . program command
-    (3) command -> . forward value
-    (4) command -> . fd value
+    (11) command -> setpos [ value value . ]
+
+    ]               shift and go to state 66
+
+
+state 60
+
+    (20) command -> setpencolor [ color ] .
+
+    forward         reduce using rule 20 (command -> setpencolor [ color ] .)
+    fd              reduce using rule 20 (command -> setpencolor [ color ] .)
+    right           reduce using rule 20 (command -> setpencolor [ color ] .)
+    rt              reduce using rule 20 (command -> setpencolor [ color ] .)
+    left            reduce using rule 20 (command -> setpencolor [ color ] .)
+    lt              reduce using rule 20 (command -> setpencolor [ color ] .)
+    back            reduce using rule 20 (command -> setpencolor [ color ] .)
+    bk              reduce using rule 20 (command -> setpencolor [ color ] .)
+    setpos          reduce using rule 20 (command -> setpencolor [ color ] .)
+    setx            reduce using rule 20 (command -> setpencolor [ color ] .)
+    sety            reduce using rule 20 (command -> setpencolor [ color ] .)
+    home            reduce using rule 20 (command -> setpencolor [ color ] .)
+    pendown         reduce using rule 20 (command -> setpencolor [ color ] .)
+    pd              reduce using rule 20 (command -> setpencolor [ color ] .)
+    penup           reduce using rule 20 (command -> setpencolor [ color ] .)
+    pu              reduce using rule 20 (command -> setpencolor [ color ] .)
+    setpencolor     reduce using rule 20 (command -> setpencolor [ color ] .)
+    make            reduce using rule 20 (command -> setpencolor [ color ] .)
+    if              reduce using rule 20 (command -> setpencolor [ color ] .)
+    ifelse          reduce using rule 20 (command -> setpencolor [ color ] .)
+    repeat          reduce using rule 20 (command -> setpencolor [ color ] .)
+    while           reduce using rule 20 (command -> setpencolor [ color ] .)
+    $end            reduce using rule 20 (command -> setpencolor [ color ] .)
+    ]               reduce using rule 20 (command -> setpencolor [ color ] .)
+
+
+state 61
+
+    (21) color -> value value . value
+    (22) value -> . NUMBER
+    (23) value -> . VAR
+
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
+
+    value                          shift and go to state 67
+
+state 62
+
+    (28) command -> if value SIGN value . [ program ]
+
+    [               shift and go to state 68
+
+
+state 63
+
+    (29) command -> ifelse value SIGN value . [ program ]
+
+    [               shift and go to state 69
+
+
+state 64
+
+    (30) command -> repeat value [ program . ]
+    (2) program -> program . command
+    (3) command -> . forward expression
+    (4) command -> . fd expression
     (5) command -> . right value
     (6) command -> . rt value
     (7) command -> . left value
@@ -1467,11 +1453,12 @@ state 67
     (20) command -> . setpencolor [ color ]
     (24) command -> . make VAR value
     (25) command -> . make VAR expression
-    (27) command -> . if value SIGN value [ program ]
-    (28) command -> . ifelse value SIGN value [ program ]
-    (29) command -> . repeat value [ program ]
-    (30) command -> . while [ value SIGN value ] [ program ]
+    (28) command -> . if value SIGN value [ program ]
+    (29) command -> . ifelse value SIGN value [ program ]
+    (30) command -> . repeat value [ program ]
+    (31) command -> . while [ value SIGN value ] [ program ]
 
+    ]               shift and go to state 70
     forward         shift and go to state 3
     fd              shift and go to state 4
     right           shift and go to state 5
@@ -1495,16 +1482,63 @@ state 67
     repeat          shift and go to state 23
     while           shift and go to state 24
 
-    program                        shift and go to state 71
-    command                        shift and go to state 2
+    command                        shift and go to state 25
+
+state 65
+
+    (31) command -> while [ value SIGN . value ] [ program ]
+    (22) value -> . NUMBER
+    (23) value -> . VAR
+
+    NUMBER          shift and go to state 28
+    VAR             shift and go to state 29
+
+    value                          shift and go to state 71
+
+state 66
+
+    (11) command -> setpos [ value value ] .
+
+    forward         reduce using rule 11 (command -> setpos [ value value ] .)
+    fd              reduce using rule 11 (command -> setpos [ value value ] .)
+    right           reduce using rule 11 (command -> setpos [ value value ] .)
+    rt              reduce using rule 11 (command -> setpos [ value value ] .)
+    left            reduce using rule 11 (command -> setpos [ value value ] .)
+    lt              reduce using rule 11 (command -> setpos [ value value ] .)
+    back            reduce using rule 11 (command -> setpos [ value value ] .)
+    bk              reduce using rule 11 (command -> setpos [ value value ] .)
+    setpos          reduce using rule 11 (command -> setpos [ value value ] .)
+    setx            reduce using rule 11 (command -> setpos [ value value ] .)
+    sety            reduce using rule 11 (command -> setpos [ value value ] .)
+    home            reduce using rule 11 (command -> setpos [ value value ] .)
+    pendown         reduce using rule 11 (command -> setpos [ value value ] .)
+    pd              reduce using rule 11 (command -> setpos [ value value ] .)
+    penup           reduce using rule 11 (command -> setpos [ value value ] .)
+    pu              reduce using rule 11 (command -> setpos [ value value ] .)
+    setpencolor     reduce using rule 11 (command -> setpos [ value value ] .)
+    make            reduce using rule 11 (command -> setpos [ value value ] .)
+    if              reduce using rule 11 (command -> setpos [ value value ] .)
+    ifelse          reduce using rule 11 (command -> setpos [ value value ] .)
+    repeat          reduce using rule 11 (command -> setpos [ value value ] .)
+    while           reduce using rule 11 (command -> setpos [ value value ] .)
+    $end            reduce using rule 11 (command -> setpos [ value value ] .)
+    ]               reduce using rule 11 (command -> setpos [ value value ] .)
+
+
+state 67
+
+    (21) color -> value value value .
+
+    ]               reduce using rule 21 (color -> value value value .)
+
 
 state 68
 
-    (28) command -> ifelse value SIGN value [ . program ]
+    (28) command -> if value SIGN value [ . program ]
     (1) program -> . command
     (2) program -> . program command
-    (3) command -> . forward value
-    (4) command -> . fd value
+    (3) command -> . forward expression
+    (4) command -> . fd expression
     (5) command -> . right value
     (6) command -> . rt value
     (7) command -> . left value
@@ -1523,10 +1557,10 @@ state 68
     (20) command -> . setpencolor [ color ]
     (24) command -> . make VAR value
     (25) command -> . make VAR expression
-    (27) command -> . if value SIGN value [ program ]
-    (28) command -> . ifelse value SIGN value [ program ]
-    (29) command -> . repeat value [ program ]
-    (30) command -> . while [ value SIGN value ] [ program ]
+    (28) command -> . if value SIGN value [ program ]
+    (29) command -> . ifelse value SIGN value [ program ]
+    (30) command -> . repeat value [ program ]
+    (31) command -> . while [ value SIGN value ] [ program ]
 
     forward         shift and go to state 3
     fd              shift and go to state 4
@@ -1556,47 +1590,11 @@ state 68
 
 state 69
 
-    (29) command -> repeat value [ program ] .
-
-    forward         reduce using rule 29 (command -> repeat value [ program ] .)
-    fd              reduce using rule 29 (command -> repeat value [ program ] .)
-    right           reduce using rule 29 (command -> repeat value [ program ] .)
-    rt              reduce using rule 29 (command -> repeat value [ program ] .)
-    left            reduce using rule 29 (command -> repeat value [ program ] .)
-    lt              reduce using rule 29 (command -> repeat value [ program ] .)
-    back            reduce using rule 29 (command -> repeat value [ program ] .)
-    bk              reduce using rule 29 (command -> repeat value [ program ] .)
-    setpos          reduce using rule 29 (command -> repeat value [ program ] .)
-    setx            reduce using rule 29 (command -> repeat value [ program ] .)
-    sety            reduce using rule 29 (command -> repeat value [ program ] .)
-    home            reduce using rule 29 (command -> repeat value [ program ] .)
-    pendown         reduce using rule 29 (command -> repeat value [ program ] .)
-    pd              reduce using rule 29 (command -> repeat value [ program ] .)
-    penup           reduce using rule 29 (command -> repeat value [ program ] .)
-    pu              reduce using rule 29 (command -> repeat value [ program ] .)
-    setpencolor     reduce using rule 29 (command -> repeat value [ program ] .)
-    make            reduce using rule 29 (command -> repeat value [ program ] .)
-    if              reduce using rule 29 (command -> repeat value [ program ] .)
-    ifelse          reduce using rule 29 (command -> repeat value [ program ] .)
-    repeat          reduce using rule 29 (command -> repeat value [ program ] .)
-    while           reduce using rule 29 (command -> repeat value [ program ] .)
-    $end            reduce using rule 29 (command -> repeat value [ program ] .)
-    ]               reduce using rule 29 (command -> repeat value [ program ] .)
-
-
-state 70
-
-    (30) command -> while [ value SIGN value . ] [ program ]
-
-    ]               shift and go to state 73
-
-
-state 71
-
-    (27) command -> if value SIGN value [ program . ]
-    (2) program -> program . command
-    (3) command -> . forward value
-    (4) command -> . fd value
+    (29) command -> ifelse value SIGN value [ . program ]
+    (1) program -> . command
+    (2) program -> . program command
+    (3) command -> . forward expression
+    (4) command -> . fd expression
     (5) command -> . right value
     (6) command -> . rt value
     (7) command -> . left value
@@ -1615,12 +1613,11 @@ state 71
     (20) command -> . setpencolor [ color ]
     (24) command -> . make VAR value
     (25) command -> . make VAR expression
-    (27) command -> . if value SIGN value [ program ]
-    (28) command -> . ifelse value SIGN value [ program ]
-    (29) command -> . repeat value [ program ]
-    (30) command -> . while [ value SIGN value ] [ program ]
+    (28) command -> . if value SIGN value [ program ]
+    (29) command -> . ifelse value SIGN value [ program ]
+    (30) command -> . repeat value [ program ]
+    (31) command -> . while [ value SIGN value ] [ program ]
 
-    ]               shift and go to state 74
     forward         shift and go to state 3
     fd              shift and go to state 4
     right           shift and go to state 5
@@ -1644,14 +1641,52 @@ state 71
     repeat          shift and go to state 23
     while           shift and go to state 24
 
-    command                        shift and go to state 25
+    program                        shift and go to state 73
+    command                        shift and go to state 2
+
+state 70
+
+    (30) command -> repeat value [ program ] .
+
+    forward         reduce using rule 30 (command -> repeat value [ program ] .)
+    fd              reduce using rule 30 (command -> repeat value [ program ] .)
+    right           reduce using rule 30 (command -> repeat value [ program ] .)
+    rt              reduce using rule 30 (command -> repeat value [ program ] .)
+    left            reduce using rule 30 (command -> repeat value [ program ] .)
+    lt              reduce using rule 30 (command -> repeat value [ program ] .)
+    back            reduce using rule 30 (command -> repeat value [ program ] .)
+    bk              reduce using rule 30 (command -> repeat value [ program ] .)
+    setpos          reduce using rule 30 (command -> repeat value [ program ] .)
+    setx            reduce using rule 30 (command -> repeat value [ program ] .)
+    sety            reduce using rule 30 (command -> repeat value [ program ] .)
+    home            reduce using rule 30 (command -> repeat value [ program ] .)
+    pendown         reduce using rule 30 (command -> repeat value [ program ] .)
+    pd              reduce using rule 30 (command -> repeat value [ program ] .)
+    penup           reduce using rule 30 (command -> repeat value [ program ] .)
+    pu              reduce using rule 30 (command -> repeat value [ program ] .)
+    setpencolor     reduce using rule 30 (command -> repeat value [ program ] .)
+    make            reduce using rule 30 (command -> repeat value [ program ] .)
+    if              reduce using rule 30 (command -> repeat value [ program ] .)
+    ifelse          reduce using rule 30 (command -> repeat value [ program ] .)
+    repeat          reduce using rule 30 (command -> repeat value [ program ] .)
+    while           reduce using rule 30 (command -> repeat value [ program ] .)
+    $end            reduce using rule 30 (command -> repeat value [ program ] .)
+    ]               reduce using rule 30 (command -> repeat value [ program ] .)
+
+
+state 71
+
+    (31) command -> while [ value SIGN value . ] [ program ]
+
+    ]               shift and go to state 74
+
 
 state 72
 
-    (28) command -> ifelse value SIGN value [ program . ]
+    (28) command -> if value SIGN value [ program . ]
     (2) program -> program . command
-    (3) command -> . forward value
-    (4) command -> . fd value
+    (3) command -> . forward expression
+    (4) command -> . fd expression
     (5) command -> . right value
     (6) command -> . rt value
     (7) command -> . left value
@@ -1670,10 +1705,10 @@ state 72
     (20) command -> . setpencolor [ color ]
     (24) command -> . make VAR value
     (25) command -> . make VAR expression
-    (27) command -> . if value SIGN value [ program ]
-    (28) command -> . ifelse value SIGN value [ program ]
-    (29) command -> . repeat value [ program ]
-    (30) command -> . while [ value SIGN value ] [ program ]
+    (28) command -> . if value SIGN value [ program ]
+    (29) command -> . ifelse value SIGN value [ program ]
+    (30) command -> . repeat value [ program ]
+    (31) command -> . while [ value SIGN value ] [ program ]
 
     ]               shift and go to state 75
     forward         shift and go to state 3
@@ -1703,133 +1738,10 @@ state 72
 
 state 73
 
-    (30) command -> while [ value SIGN value ] . [ program ]
-
-    [               shift and go to state 76
-
-
-state 74
-
-    (27) command -> if value SIGN value [ program ] .
-
-    forward         reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    fd              reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    right           reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    rt              reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    left            reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    lt              reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    back            reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    bk              reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    setpos          reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    setx            reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    sety            reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    home            reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    pendown         reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    pd              reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    penup           reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    pu              reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    setpencolor     reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    make            reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    if              reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    ifelse          reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    repeat          reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    while           reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    $end            reduce using rule 27 (command -> if value SIGN value [ program ] .)
-    ]               reduce using rule 27 (command -> if value SIGN value [ program ] .)
-
-
-state 75
-
-    (28) command -> ifelse value SIGN value [ program ] .
-
-    forward         reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    fd              reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    right           reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    rt              reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    left            reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    lt              reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    back            reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    bk              reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    setpos          reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    setx            reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    sety            reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    home            reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    pendown         reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    pd              reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    penup           reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    pu              reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    setpencolor     reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    make            reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    if              reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    ifelse          reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    repeat          reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    while           reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    $end            reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-    ]               reduce using rule 28 (command -> ifelse value SIGN value [ program ] .)
-
-
-state 76
-
-    (30) command -> while [ value SIGN value ] [ . program ]
-    (1) program -> . command
-    (2) program -> . program command
-    (3) command -> . forward value
-    (4) command -> . fd value
-    (5) command -> . right value
-    (6) command -> . rt value
-    (7) command -> . left value
-    (8) command -> . lt value
-    (9) command -> . back value
-    (10) command -> . bk value
-    (11) command -> . setpos [ value value ]
-    (12) command -> . setpos value value
-    (13) command -> . setx value
-    (14) command -> . sety value
-    (15) command -> . home
-    (16) command -> . pendown
-    (17) command -> . pd
-    (18) command -> . penup
-    (19) command -> . pu
-    (20) command -> . setpencolor [ color ]
-    (24) command -> . make VAR value
-    (25) command -> . make VAR expression
-    (27) command -> . if value SIGN value [ program ]
-    (28) command -> . ifelse value SIGN value [ program ]
-    (29) command -> . repeat value [ program ]
-    (30) command -> . while [ value SIGN value ] [ program ]
-
-    forward         shift and go to state 3
-    fd              shift and go to state 4
-    right           shift and go to state 5
-    rt              shift and go to state 6
-    left            shift and go to state 7
-    lt              shift and go to state 8
-    back            shift and go to state 9
-    bk              shift and go to state 10
-    setpos          shift and go to state 11
-    setx            shift and go to state 12
-    sety            shift and go to state 13
-    home            shift and go to state 14
-    pendown         shift and go to state 15
-    pd              shift and go to state 16
-    penup           shift and go to state 17
-    pu              shift and go to state 18
-    setpencolor     shift and go to state 19
-    make            shift and go to state 20
-    if              shift and go to state 21
-    ifelse          shift and go to state 22
-    repeat          shift and go to state 23
-    while           shift and go to state 24
-
-    program                        shift and go to state 77
-    command                        shift and go to state 2
-
-state 77
-
-    (30) command -> while [ value SIGN value ] [ program . ]
+    (29) command -> ifelse value SIGN value [ program . ]
     (2) program -> program . command
-    (3) command -> . forward value
-    (4) command -> . fd value
+    (3) command -> . forward expression
+    (4) command -> . fd expression
     (5) command -> . right value
     (6) command -> . rt value
     (7) command -> . left value
@@ -1848,12 +1760,12 @@ state 77
     (20) command -> . setpencolor [ color ]
     (24) command -> . make VAR value
     (25) command -> . make VAR expression
-    (27) command -> . if value SIGN value [ program ]
-    (28) command -> . ifelse value SIGN value [ program ]
-    (29) command -> . repeat value [ program ]
-    (30) command -> . while [ value SIGN value ] [ program ]
+    (28) command -> . if value SIGN value [ program ]
+    (29) command -> . ifelse value SIGN value [ program ]
+    (30) command -> . repeat value [ program ]
+    (31) command -> . while [ value SIGN value ] [ program ]
 
-    ]               shift and go to state 78
+    ]               shift and go to state 76
     forward         shift and go to state 3
     fd              shift and go to state 4
     right           shift and go to state 5
@@ -1879,32 +1791,215 @@ state 77
 
     command                        shift and go to state 25
 
+state 74
+
+    (31) command -> while [ value SIGN value ] . [ program ]
+
+    [               shift and go to state 77
+
+
+state 75
+
+    (28) command -> if value SIGN value [ program ] .
+
+    forward         reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    fd              reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    right           reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    rt              reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    left            reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    lt              reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    back            reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    bk              reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    setpos          reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    setx            reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    sety            reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    home            reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    pendown         reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    pd              reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    penup           reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    pu              reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    setpencolor     reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    make            reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    if              reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    ifelse          reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    repeat          reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    while           reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    $end            reduce using rule 28 (command -> if value SIGN value [ program ] .)
+    ]               reduce using rule 28 (command -> if value SIGN value [ program ] .)
+
+
+state 76
+
+    (29) command -> ifelse value SIGN value [ program ] .
+
+    forward         reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    fd              reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    right           reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    rt              reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    left            reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    lt              reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    back            reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    bk              reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    setpos          reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    setx            reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    sety            reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    home            reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    pendown         reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    pd              reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    penup           reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    pu              reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    setpencolor     reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    make            reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    if              reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    ifelse          reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    repeat          reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    while           reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    $end            reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+    ]               reduce using rule 29 (command -> ifelse value SIGN value [ program ] .)
+
+
+state 77
+
+    (31) command -> while [ value SIGN value ] [ . program ]
+    (1) program -> . command
+    (2) program -> . program command
+    (3) command -> . forward expression
+    (4) command -> . fd expression
+    (5) command -> . right value
+    (6) command -> . rt value
+    (7) command -> . left value
+    (8) command -> . lt value
+    (9) command -> . back value
+    (10) command -> . bk value
+    (11) command -> . setpos [ value value ]
+    (12) command -> . setpos value value
+    (13) command -> . setx value
+    (14) command -> . sety value
+    (15) command -> . home
+    (16) command -> . pendown
+    (17) command -> . pd
+    (18) command -> . penup
+    (19) command -> . pu
+    (20) command -> . setpencolor [ color ]
+    (24) command -> . make VAR value
+    (25) command -> . make VAR expression
+    (28) command -> . if value SIGN value [ program ]
+    (29) command -> . ifelse value SIGN value [ program ]
+    (30) command -> . repeat value [ program ]
+    (31) command -> . while [ value SIGN value ] [ program ]
+
+    forward         shift and go to state 3
+    fd              shift and go to state 4
+    right           shift and go to state 5
+    rt              shift and go to state 6
+    left            shift and go to state 7
+    lt              shift and go to state 8
+    back            shift and go to state 9
+    bk              shift and go to state 10
+    setpos          shift and go to state 11
+    setx            shift and go to state 12
+    sety            shift and go to state 13
+    home            shift and go to state 14
+    pendown         shift and go to state 15
+    pd              shift and go to state 16
+    penup           shift and go to state 17
+    pu              shift and go to state 18
+    setpencolor     shift and go to state 19
+    make            shift and go to state 20
+    if              shift and go to state 21
+    ifelse          shift and go to state 22
+    repeat          shift and go to state 23
+    while           shift and go to state 24
+
+    program                        shift and go to state 78
+    command                        shift and go to state 2
+
 state 78
 
-    (30) command -> while [ value SIGN value ] [ program ] .
+    (31) command -> while [ value SIGN value ] [ program . ]
+    (2) program -> program . command
+    (3) command -> . forward expression
+    (4) command -> . fd expression
+    (5) command -> . right value
+    (6) command -> . rt value
+    (7) command -> . left value
+    (8) command -> . lt value
+    (9) command -> . back value
+    (10) command -> . bk value
+    (11) command -> . setpos [ value value ]
+    (12) command -> . setpos value value
+    (13) command -> . setx value
+    (14) command -> . sety value
+    (15) command -> . home
+    (16) command -> . pendown
+    (17) command -> . pd
+    (18) command -> . penup
+    (19) command -> . pu
+    (20) command -> . setpencolor [ color ]
+    (24) command -> . make VAR value
+    (25) command -> . make VAR expression
+    (28) command -> . if value SIGN value [ program ]
+    (29) command -> . ifelse value SIGN value [ program ]
+    (30) command -> . repeat value [ program ]
+    (31) command -> . while [ value SIGN value ] [ program ]
 
-    forward         reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    fd              reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    right           reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    rt              reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    left            reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    lt              reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    back            reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    bk              reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    setpos          reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    setx            reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    sety            reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    home            reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    pendown         reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    pd              reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    penup           reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    pu              reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    setpencolor     reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    make            reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    if              reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    ifelse          reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    repeat          reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    while           reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    $end            reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
-    ]               reduce using rule 30 (command -> while [ value SIGN value ] [ program ] .)
+    ]               shift and go to state 79
+    forward         shift and go to state 3
+    fd              shift and go to state 4
+    right           shift and go to state 5
+    rt              shift and go to state 6
+    left            shift and go to state 7
+    lt              shift and go to state 8
+    back            shift and go to state 9
+    bk              shift and go to state 10
+    setpos          shift and go to state 11
+    setx            shift and go to state 12
+    sety            shift and go to state 13
+    home            shift and go to state 14
+    pendown         shift and go to state 15
+    pd              shift and go to state 16
+    penup           shift and go to state 17
+    pu              shift and go to state 18
+    setpencolor     shift and go to state 19
+    make            shift and go to state 20
+    if              shift and go to state 21
+    ifelse          shift and go to state 22
+    repeat          shift and go to state 23
+    while           shift and go to state 24
 
+    command                        shift and go to state 25
+
+state 79
+
+    (31) command -> while [ value SIGN value ] [ program ] .
+
+    forward         reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    fd              reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    right           reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    rt              reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    left            reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    lt              reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    back            reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    bk              reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    setpos          reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    setx            reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    sety            reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    home            reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    pendown         reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    pd              reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    penup           reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    pu              reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    setpencolor     reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    make            reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    if              reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    ifelse          reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    repeat          reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    while           reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    $end            reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+    ]               reduce using rule 31 (command -> while [ value SIGN value ] [ program ] .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: reduce/reduce conflict in state 52 resolved using rule (command -> make VAR value)
+WARNING: rejected rule (expression -> value) in state 52
