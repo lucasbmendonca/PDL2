@@ -24,7 +24,7 @@ def do_while(command, parser):
 def do_foward(command, parser):
     value = parser.value(command.args['value'])
     print(value)
-    #svg.forward
+    #svg.foward
 
 def do_right(command, parser):
     value = parser.value(command.args['value'])
@@ -42,33 +42,31 @@ def do_back(command, parser):
     #svg.back
 
 def do_setpos(command, parser):
-    value = parser.value(command.args['value'])
-    print(value)
+    x = parser.value(command.args['value'])
+    y = parser.value(command.args['value2'])
+    #print(value)
     #svg.setpos
 
 def do_setx(command, parser):
-    value = parser.value(command.args['value'])
-    print(value)
+    x = parser.value(command.args['value'])
+    print(x)
     #svg.setx
 
 def do_sety(command, parser):
-    value = parser.value(command.args['value'])
-    print(value)
+    y = parser.value(command.args['value'])
+    print(y)
     #svg.sety
 
 def do_home(command, parser):
-    value = parser.value(command.args['value'])
-    print(value)
+    y = parser.value(command.args['value'])
     #svg.home
 
 def do_pendown(command, parser):
-    value = parser.value(command.args['value'])
-    print(value)
+    y = parser.value(command.args['value'])
     #svg.pendown
 
 def do_penup(command, parser):
-    value = parser.value(command.args['value'])
-    print(value)
+    y = parser.value(command.args['value'])
     #svg.penup
 
 def do_setpencolor(command, parser):
@@ -88,8 +86,12 @@ def do_if(command, parser):
          Command.exec(code,parser)
 
 def do_repeat(command, parser):
-    value = parser.value(command.args['value'])
-    print(value)
+    value = int(parser.value(command.args['value']))
+    code = command.args['code']
+    
+    for _ in range(value):
+        Command.exec(code,parser)
+        print(value)
     #svg.left
 
 class Command:
