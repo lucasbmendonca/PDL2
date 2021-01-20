@@ -24,7 +24,7 @@ def do_while(command, parser):
 def do_foward(command, parser):
     value = parser.value(command.args['value'])
     print(value)
-    #svg.foward
+    #svg.foward(value)
 
 def do_right(command, parser):
     value = parser.value(command.args['value'])
