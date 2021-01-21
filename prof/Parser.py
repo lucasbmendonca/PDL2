@@ -6,15 +6,25 @@ from Lexer import Lexer
 from Canvas import Canvas
 from Command import Command
 
+# a + b + c   (a + b) + c
+# a ^ b ^ c   (a^b)^c   a^(b^c)
+
+# RAND RAND 5   RAND (RAND 5)  (RAND RAND) 5
 
 class Parser:
     tokens = Lexer.tokens
+    precedence = (
+        ("left", '+', '-'),
+        ("left", '*', '/'),
+        ("right", "RAND")
+    )
 
     def __init__(self):
         self.parser = None
         self.lexer = None
         self.canvas = None
         self.vars = {}   # Symbol Table
+        self.funcs = {}
         self.color = (0, 0, 0)
 
     def eval_point(self, point):
@@ -27,10 +37,25 @@ class Parser:
         return (self.value(color[0]), self.value(color[1]), self.value(color[2]))
 
     def value(self, val):
-        if type(val) == dict:
+        if type(val) == dict and "rand" in val:
             max_val = val['rand']
             max_val = self.value(max_val)
             return random.randint(1, max_val)   ## should be zero in the future FIXME
+
+        if type(val) == dict and "op" in val:
+            left = self.value(val["left"])
+            right = self.value(val["right"])
+            op = val["op"]
+            if   op == "+": return left + right
+            elif op == "*": return left * right
+            elif op == "-": return left - right
+            elif op == "/":
+                if right == 0:
+                    print("Division by zero")
+                    exit(1)
+                return left / right
+            else:
+                print(f"Unknown operator: {op}")
 
         if type(val) == int:
             return val
@@ -49,8 +74,10 @@ class Parser:
         program = self.parser.parse(lexer=self.lexer.lexer)
         Command.exec(program, self)
 
-    def p_error(self, t):
+    def p_error(self, p):
         print("Syntax error", file=sys.stderr)
+        if p:
+            print(f"Unexpected token '{p.type}'", file=sys.stderr)
         exit(1)
 
     def p_program0(self, p):
@@ -62,6 +89,39 @@ class Parser:
         lst = p[1]
         lst.append(p[2])
         p[0] = lst
+
+    def p_varlist(self, p):
+        """ varlist :
+                    | VAR
+                    | varlist ',' VAR """
+        if len(p) == 1:
+            p[0] = []
+        elif len(p) == 2:
+            p[0] = [p[1]]
+        else:
+            p[0] = p[1]
+            p[0].append(p[3])
+
+
+    def p_command_def(self, p):
+        """  command : DEF VAR '(' varlist ')' program ENDDEF ';'  """
+        p[0] = Command("def", {"name": p[2], "args": p[4], "code": p[6]})
+
+    def p_valuelist(self, p):
+        """ valuelist :
+                      | value
+                      | valuelist ',' value """
+        if len(p) == 1:
+            p[0] = []
+        elif len(p) == 2:
+            p[0] = [p[1]]
+        else:
+            p[0] = p[1]
+            p[0].append(p[3])
+
+    def p_command_call(self, p):
+        """   command : VAR '(' valuelist ')' ';'   """
+        p[0] = Command("call", {"name": p[1], "args": p[3]})
 
     def p_command0(self, p):
         """  command  :  NEW size color ';'  """
@@ -77,13 +137,16 @@ class Parser:
     def p_command3(self, t):
         """  command  :  COLOR color ';'  """
 
-    def p_command4(self, t):
-        """  command  :  POINT point color ';'
+    def p_command4(self, p):
+        """  command  : POINT point color ';'
                       | POINT point ';' """
-        # ....
+        if len(p) == 5:
+            p[0] = Command("point", {"point": p[2], "color": p[3]})
+        else:
+            p[0] = Command("point", {"point": p[2]})
 
     def p_command5(self, t):
-        """  command  :  LINE  point point color ';'
+        """  command  : LINE point point color ';'
                       | LINE point point ';'  """
 
     def p_command6(self, p):
@@ -159,8 +222,18 @@ class Parser:
     def p_value(self, p):
         """  value  :   INT
                     |   VAR
-                    |   RAND value """
-        if len(p) == 2:
+                    |   RAND value
+                    |   '(' value ')'
+                    |   value '+' value
+                    |   value '-' value
+                    |   value '*' value
+                    |   value '/' value """
+        if len(p) == 4:
+            if p[1] == '(':
+                p[0] = p[2]
+            else:
+                p[0] = {'left': p[1], 'right': p[3], 'op': p[2]}
+        elif len(p) == 2:
             p[0] = p[1]
         else:
             p[0] = {'rand': p[2]}

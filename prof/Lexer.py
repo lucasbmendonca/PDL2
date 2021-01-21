@@ -3,15 +3,16 @@ import ply.lex as lex
 import sys
 
 class Lexer:
-    literals = "x:;,[=]"
+    literals = "x:;,[=]()+-/*"
     t_ignore = " \n\t"
     t_DOTS = r'\.\.'
     tokens = ("INT", "STR", "NEW", "LOAD", "SAVE", "COLOR",
               "POINT", "LINE", "RECT", "RECTFILL", "POLYLINE", "CIRC",
-              "FOR", "DO", "IN", "ENDFOR", "DOTS", "VAR", "RAND")
+              "FOR", "DO", "IN", "ENDFOR", "DOTS", "VAR", "RAND",
+              "DEF", "ENDDEF")
 
     def t_COMMAND(self, t):
-        r"FOR|DO|IN|END\ FOR|LOAD|NEW|SAVE|COLOR|POINT|RAND|LINE|RECT(FILL)?|POLYLINE|CIRC"
+        r"FOR|DO|IN|END\ (DEF|FOR)|DEF|LOAD|NEW|SAVE|COLOR|POINT|RAND|LINE|RECT(FILL)?|POLYLINE|CIRC"
         t.type = t.value.replace(" ", "")
         return t
 

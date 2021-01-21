@@ -1,12 +1,9 @@
-NEW 300x500 255:255:255;
-FOR i IN [0..50] DO
-    width = RAND 50;
-    posx = RAND 50;
-    posy = RAND 50;
-    r = RAND 255;
-    g = RAND 255;
-    b = RAND 255;
-    RECT posx, posy width x width r:g:b;
-END FOR;
+DEF ponto()
+   POINT 100, 100   0:0:0  ;
+END DEF;
+
+NEW 200x200 255:255:255;
+ponto();
+
 SAVE "blue.pnm";
 

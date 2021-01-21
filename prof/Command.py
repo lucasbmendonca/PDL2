@@ -42,6 +42,15 @@ def do_polyline(command, parser):
         last_point = pt
 
 
+def do_point(command, parser):
+    color = parser.color
+    if 'color' in command.args:
+        color = command.args['color']
+    color = parser.eval_color(color)
+    point = parser.eval_point(command.args['point'])
+    parser.canvas.point(point, color)
+
+
 def do_for(command, parser):
     var = command.args['var']
     min_val = parser.value(command.args['min'])
@@ -60,6 +69,32 @@ def do_assign(command, parser):
     value = parser.value(command.args['source'])
     parser.vars[var] = value
 
+def do_def(command, parser):
+    funcname = command.args["name"]
+    code = command.args["code"]
+    params = command.args["args"]
+    parser.funcs[funcname] = {"code": code, "args": params}
+
+def do_call(command, parser):
+    funcname = command.args["name"]
+    if funcname not in parser.funcs:
+        print(f"Unknown function '{funcname}'")
+        exit(1)
+    params = parser.funcs[funcname]["args"]
+    code = parser.funcs[funcname]["code"]
+    vals = command.args["args"]
+
+    backup_vars = parser.vars.copy()
+
+    for var, val in zip(params, vals):
+        parser.vars[var] = parser.value(val)
+    Command.exec(code, parser)
+    # No longer needed
+    # for var in params:
+    #    del(parser.vars[var])
+    parser.vars = backup_vars.copy()
+
+
 class Command:
     # Dispatch Table!
     dispatch_table = {
@@ -69,6 +104,9 @@ class Command:
         "polyline": do_polyline,
         "for": do_for,
         "assign": do_assign,
+        "point": do_point,
+        "def": do_def,
+        "call": do_call,
     }
 
     def __init__(self, command, args):
