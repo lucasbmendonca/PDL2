@@ -58,4 +58,4 @@ def test():
     draw.write_svg()
     draw.display()
     return
-test()
+#test()

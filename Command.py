@@ -70,8 +70,11 @@ def do_penup(command, parser):
     #svg.penup
 
 def do_setpencolor(command, parser):
-    value = parser.value(command.args['value'])
-    print(value)
+    value = command.args['rgb']
+    arg1 = parser.value(value[0])
+    arg2 = parser.value(value[1])
+    arg3 = parser.value(value[2])
+    print(arg1, arg2,arg3)
     #svg.setpencolor
 
 def do_if(command, parser):

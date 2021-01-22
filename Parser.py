@@ -141,7 +141,6 @@ class Parser:
     def p_value(self, p):
         """  value  :   NUMBER
                     |   VAR """
-
         value = p[1]
         if type(p[1]) != float:
             value = p[1].replace('"',':')
@@ -152,7 +151,8 @@ class Parser:
                     |     make VAR expression """
         var_value = p[2].replace('"',':')
         p[0] = Command("assign", {"target": var_value, "source": p[3]})
-
+    
+    
     def p_expression(self,p):
         """  expression  :   value OPERATION value
                          |   value """

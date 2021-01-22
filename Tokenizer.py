@@ -23,7 +23,7 @@ class Lexer:
         return t
     
     def t_NUMBER(self, t):
-        r"[-]?[0-9]+(.[0-9]+)?"
+        r"[+-]?([0-9]+[.])?[0-9]+"
         t.value = float(t.value)
         return t
 
