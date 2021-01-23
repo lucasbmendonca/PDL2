@@ -72,7 +72,7 @@ def do_setpencolor(command, parser):
     arg1 = parser.value(value[0])
     arg2 = parser.value(value[1])
     arg3 = parser.value(value[2])
-    parser.svg.SetPenColor(value[0], value[1], value[2])
+    parser.svg.SetPenColor(arg1, arg2, arg3)
     print(arg1, arg2,arg3)
 
 def do_if(command, parser):
