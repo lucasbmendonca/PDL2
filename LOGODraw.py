@@ -7,13 +7,13 @@ class LOGODraw:
 
 
     def __init__(self):
-        self.initialPoint = (400, 300)
+        self.initialPoint = (500, 500)
         self.track = [self.initialPoint]
         self.angle = 90
         self.penStatus = 1
         self.filename = "logo.svg"
         self.rgb = (0,255,0)
-        self.svgFile = svgwrite.Drawing(filename = self.filename, size = ("3200px", "2400px"))
+        self.svgFile = svgwrite.Drawing(filename = self.filename, size = ("1000px", "1000px"))
 
     def SaveSVG(self):
         self.svgFile.save()
