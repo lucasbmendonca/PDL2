@@ -1,40 +1,36 @@
 # Parser.py
 import sys
 import ply.yacc as yacc
-from Tokenizer import Lexer
-from Svg import Svg
+from Lexer import Lexer
 from Command import Command
+from LOGODraw import LOGODraw
 
 class Parser:
     tokens = Lexer.tokens
+    precedence = (
+        ("left", '+', '-'),
+        ("left", '*', '/')
+    )
 
     def __init__(self):
         self.parser = None
         self.lexer = None
-        self.svg = Svg()
+        self.svg = LOGODraw()
         self.vars = {}   # Symbol Table
-        self.color = (0, 0, 0)
-
-    def eval_point(self, point):
-        return (self.value(point[0]), self.value(point[1]))
-
-    def eval_size(self, size):
-        return (size[0], self.value(size[1]), self.value(size[2]))
-
-    def eval_color(self, color):
-        return (self.value(color[0]), self.value(color[1]), self.value(color[2]))
+        self.funcs = {}
+        #self.color = (0, 0, 0)
 
     def value(self, val):
         _type = type(val)
-        type2 = Command
+        #type2 = Command
         #verifica se é uma expressao
-        if _type == type2:
-            value1 = val.args['value1']
+        if _type == dict:
+            value1 = self.value(val['value1'])
             if type(value1) != float:
                  if value1 in self.vars:
                     value1 = self.vars[value1]
-            operator = val.args['op']
-            value2 = val.args['value2']
+            operator = val['op']
+            value2 = self.value(val['value2'])
             if type(value2) != float:
                 if value2 in self.vars:
                     value2 = self.vars[value2]
@@ -43,10 +39,13 @@ class Parser:
             elif operator == '+':
                 val = float(eval("value1 + value2",{"value1": value1, "value2": value2}))
             elif operator == '/':
+                if value2 == 0:
+                    print("Division by zero")
+                    exit(1)
                 val = float(eval("value1 / value2",{"value1": value1, "value2": value2}))
             elif operator == '*':
                 val = float(eval("value1 * value2",{"value1": value1, "value2": value2}))
-
+            #print(val)
         if type(val) == float:
             return val
 
@@ -79,23 +78,23 @@ class Parser:
         p[0] = lst
 
     def p_command0(self, p):
-        """  command  :  forward expression  
-                      |  fd expression """
+        """  command  :  forward value  
+                      |  fd value """
         p[0] = Command("forward", {'value': p[2]})
 
     def p_command1(self, p):
-        """  command  :  right expression  
-                      |  rt expression """
+        """  command  :  right value  
+                      |  rt value """
         p[0] = Command("right", {'value': p[2]})
 
     def p_command2(self, p):
-        """  command  :  left expression  
-                      |  lt expression """
+        """  command  :  left value  
+                      |  lt value """
         p[0] = Command("left", {'value': p[2]})
 
     def p_command3(self, p):
-        """  command  :  back expression  
-                      |  bk expression """
+        """  command  :  back value  
+                      |  bk value """
         p[0] = Command("back", {'value': p[2]})
     
     def p_command4(self, p):
@@ -140,30 +139,27 @@ class Parser:
 
     def p_value(self, p):
         """  value  :   NUMBER
-                    |   VAR """
-        value = p[1]
-        if type(p[1]) != float:
-            value = p[1].replace('"',':')
-        p[0] = value
-
-    def p_command11(self, p):
-        """  command  :   make VAR value 
-                    |     make VAR expression """
-        var_value = p[2].replace('"',':')
-        p[0] = Command("assign", {"target": var_value, "source": p[3]})
-    
-    
-    def p_expression(self,p):
-        """  expression  :   value OPERATION value
-                         |   value """
+                    |   VAR
+                    |   value '+' value
+                    |   value '-' value
+                    |   value '*' value
+                    |   value '/' value """
         if len(p)>2:
-            p[0] = Command("expression",{
+            p[0] = {
                 'value1': p[1],
                 'op': p[2],
                 'value2': p[3]
-        })
+        }
         else:
-            p[0] = p[1]
+            value = p[1]
+            if type(p[1]) != float:
+                value = p[1].replace('"',':')
+            p[0] = value
+
+    def p_command11(self, p):
+        """  command  :   make VAR value """
+        var_value = p[2].replace('"',':')
+        p[0] = Command("assign", {"target": var_value, "source": p[3]})
 
     def p_command12(self, p):
         """  command  :   if value SIGN value '[' program ']'
@@ -190,3 +186,43 @@ class Parser:
             'sign': p[4],
             'code': p[8]
         })
+
+    #function
+    def p_command15(self, p):
+        """  command : to STR varlist program end """
+        p[0] = Command("to", {"name": p[2], "args": p[3], "code": p[4]})
+
+    #varlist
+    def p_varlist(self, p):
+        """ varlist :
+                    | VAR
+                    | varlist VAR """
+        if len(p) == 1:
+            p[0] = []
+        elif len(p) == 2:
+            p[0] = [p[1]]
+        else:
+            p[0] = p[1]
+            p[0].append(p[2])
+
+    #call
+    def p_command_16(self, p):
+        """   command : STR valuelist   """
+        p[0] = Command("call", {"name": p[1], "args": p[2]})
+        
+    #valuelist
+    def p_valuelist(self, p):
+        """ valuelist :
+                    | value
+                    | valuelist value """
+        if len(p) == 1:
+            p[0] = []
+        elif len(p) == 2:
+            p[0] = [p[1]]
+        else:
+            p[0] = p[1]
+            p[0].append(p[2])
+    
+    def p_stop(self,p):
+        """   command : stop   """
+        p[0] = Command("stop", {})

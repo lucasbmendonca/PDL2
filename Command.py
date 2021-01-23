@@ -1,5 +1,4 @@
 # Command.py
-from Svg import Svg
 
 def assign(command, parser):
     var = command.args['target']
@@ -24,58 +23,57 @@ def do_while(command, parser):
 def do_foward(command, parser):
     value = parser.value(command.args['value'])
     print(value)
-    #svg.foward(value)
+    parser.svg.Forward(value)
 
 def do_right(command, parser):
     value = parser.value(command.args['value'])
     print(value)
-    #svg.right
+    parser.svg.Right(value)
 
 def do_left(command, parser):
     value = parser.value(command.args['value'])
+    parser.svg.Left(value)
     print(value)
-    #svg.left
 
 def do_back(command, parser):
     value = parser.value(command.args['value'])
+    parser.svg.Back(value)
     print(value)
-    #svg.back
 
 def do_setpos(command, parser):
     x = parser.value(command.args['value'])
     y = parser.value(command.args['value2'])
-    #print(value)
-    #svg.setpos
+    parser.svg.SetPos(x, y)
 
 def do_setx(command, parser):
     x = parser.value(command.args['value'])
     print(x)
-    #svg.setx
+    parser.svg.SetX(x)
 
 def do_sety(command, parser):
     y = parser.value(command.args['value'])
+    parser.svg.SetY(y)
     print(y)
-    #svg.sety
 
 def do_home(command, parser):
     y = parser.value(command.args['value'])
-    #svg.home
+    parser.svg.Home()
 
 def do_pendown(command, parser):
     y = parser.value(command.args['value'])
-    #svg.pendown
+    parser.svg.PenDown()
 
 def do_penup(command, parser):
     y = parser.value(command.args['value'])
-    #svg.penup
+    parser.svg.PenUp()
 
 def do_setpencolor(command, parser):
     value = command.args['rgb']
     arg1 = parser.value(value[0])
     arg2 = parser.value(value[1])
     arg3 = parser.value(value[2])
+    parser.svg.SetPenColor(value[0], value[1], value[2])
     print(arg1, arg2,arg3)
-    #svg.setpencolor
 
 def do_if(command, parser):
     value1 = parser.value(command.args['value1'])
@@ -87,6 +85,10 @@ def do_if(command, parser):
 
     if condition == True:
          Command.exec(code,parser)
+    
+def do_stop(command,parser):
+    Command.stop = True
+    return
 
 def do_repeat(command, parser):
     value = int(parser.value(command.args['value']))
@@ -95,7 +97,28 @@ def do_repeat(command, parser):
     for _ in range(value):
         Command.exec(code,parser)
         print(value)
-    #svg.left
+
+def do_to(command, parser):
+    funcname = command.args["name"]
+    code = command.args["code"]
+    params = command.args["args"]
+    parser.funcs[funcname] = {"code": code, "args": params}
+
+def do_call(command, parser):
+    funcname = command.args["name"]
+    if funcname not in parser.funcs:
+        print(f"Unknown function '{funcname}'")
+        exit(1)
+    params = parser.funcs[funcname]["args"]
+    code = parser.funcs[funcname]["code"]
+    vals = command.args["args"]
+
+    backup_vars = parser.vars.copy()
+
+    for var, val in zip(params, vals):
+        parser.vars[var] = parser.value(val)
+    Command.exec(code, parser)
+    parser.vars = backup_vars.copy()
 
 class Command:
     # Dispatch Table!
@@ -114,8 +137,13 @@ class Command:
         "penup": do_penup,
         "setpencolor": do_setpencolor,
         "if": do_if,
-        "repeat": do_repeat
+        "repeat": do_repeat,
+        "to": do_to,
+        "call": do_call,
+        "stop": do_stop
     }
+
+    stop = False
 
     def __init__(self, command, args):
         self.name = command
@@ -131,4 +159,7 @@ class Command:
     def exec(cls, program, parser):
         for command in program:
             print(command)
+            if(Command.stop==True):
+                Command.stop = False
+                break
             command.draw(parser)

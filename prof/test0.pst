@@ -1,9 +1,0 @@
-DEF ponto()
-   POINT 100, 100   0:0:0  ;
-END DEF;
-
-NEW 200x200 255:255:255;
-ponto();
-
-SAVE "blue.pnm";
-

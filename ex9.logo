@@ -1,0 +1,9 @@
+to spiral
+   make "n 1
+   while [:n < 100] [
+      make "n :n + 5
+      fd :n rt 90
+   ]
+end
+
+spiral
