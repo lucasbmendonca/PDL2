@@ -120,7 +120,7 @@ def do_call(command, parser):
     Command.exec(code, parser)
     parser.vars = backup_vars.copy()
 
-class Command:
+class Command(dict):
     # Dispatch Table!
     dispatch_table = {
         "assign": assign,
@@ -146,6 +146,7 @@ class Command:
     stop = False
 
     def __init__(self, command, args):
+        dict.__init__(self, command=command,args=args)
         self.name = command
         self.args = args
 
