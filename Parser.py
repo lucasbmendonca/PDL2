@@ -18,7 +18,6 @@ class Parser:
         self.svg = LOGODraw()
         self.vars = {}   # Symbol Table
         self.funcs = {}
-        self.tree = {}
         #self.color = (0, 0, 0)
 
     def value(self, val):
@@ -71,14 +70,12 @@ class Parser:
     def p_program0(self, p):
         """  program  :   command  """
         p[0] = [p[1]]
-        #self.state.AST.append([p[1]])
 
     def p_program1(self, p):
         """  program  :  program command  """
         lst = p[1]
         lst.append(p[2])
         p[0] = lst
-        self.tree = lst
 
     def p_command0(self, p):
         """  command  :  forward value  

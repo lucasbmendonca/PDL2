@@ -2,7 +2,6 @@
 from Parser import Parser
 import sys
 import os
-import json
 
 relativePath = os.path.dirname(os.path.abspath(__file__))
 fullPath = relativePath + "\\ex10.logo"
@@ -14,5 +13,3 @@ parser = Parser()
 parser.Parse(contents)
 parser.svg.SaveSVG()
 parser.svg.display()
-#jsonString = json.dumps(parser.tree)
-#print(jsonString)
