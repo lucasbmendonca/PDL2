@@ -99,7 +99,7 @@ class Parser:
     
     def p_command4(self, p):
         """  command  :  setpos '[' value value ']' 
-                        | setpos value value """
+                        | setxy value value """
         if len(p) == 6:
             p[0] = Command("setpos", {'value1': p[3], 'value2': p[4]})
         else:
