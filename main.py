@@ -5,7 +5,7 @@ import os
 import json
 
 relativePath = os.path.dirname(os.path.abspath(__file__))
-fullPath = relativePath + "\\ex8.logo"
+fullPath = relativePath + "\\ex10.logo"
 
 with open(fullPath, mode="r") as fh:
     contents = fh.read()
