@@ -67,6 +67,7 @@ class LOGODraw:
         self.svgFile.add(self.svgFile.polyline(points = self.track, stroke = svgwrite.rgb(self.rgb[0], self.rgb[1], self.rgb[2], '%'), stroke_width= self.penStatus, fill = 'none'))
     
     def Home(self):
+        self.angle = 90
         self.track.append(self.initialPoint)
         self.svgFile.add(self.svgFile.polyline(points = self.track, stroke = svgwrite.rgb(self.rgb[0], self.rgb[1], self.rgb[2], '%'), stroke_width= self.penStatus, fill = 'none'))
 
