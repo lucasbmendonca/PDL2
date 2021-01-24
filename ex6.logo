@@ -1,4 +1,4 @@
-make "size 2
+make "size 10
 if :size < 5 [ forward :size ]
 forward :size / 3
 left 30 * 2 right 30

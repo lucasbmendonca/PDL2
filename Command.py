@@ -41,7 +41,7 @@ def do_back(command, parser):
     print(value)
 
 def do_setpos(command, parser):
-    x = parser.value(command.args['value'])
+    x = parser.value(command.args['value1'])
     y = parser.value(command.args['value2'])
     parser.svg.SetPos(x, y)
 
